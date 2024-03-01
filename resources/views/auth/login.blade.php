@@ -1,4 +1,4 @@
-@extends('adminlte::master')
+{{-- @extends('adminlte::master')
 
 @section('classes_body', 'lockscreen')
 
@@ -13,7 +13,6 @@
 @section('body')
     <div class="lockscreen-wrapper">
 
-        {{-- Lockscreen logo --}}
         <div class="lockscreen-logo">
             <a href="{{ $dashboard_url }}">
                 <img src="{{ asset(config('adminlte.logo_img')) }}" height="50">
@@ -21,12 +20,10 @@
             </a>
         </div>
 
-        {{-- Lockscreen user name --}}
         <div class="lockscreen-name">
             Bienvenido.
         </div>
 
-        {{-- Lockscreen item --}}
         <div class="lockscreen-item">
 
             <form method="POST" action="{{ route('login') }}"
@@ -48,23 +45,21 @@
             </form>
         </div>
 
-        {{-- Password error alert --}}
         @error('password')
             <div class="lockscreen-subitem text-center" role="alert">
                 <b class="text-danger">{{ $message }}</b>
             </div>
         @enderror
 
-        {{-- Help block --}}
         <div class="help-block text-center">
             {{ __('adminlte::adminlte.confirm_password_message') }}
         </div>
 
     </div>
 @stop
+ --}}
 
-
-{{-- <x-guest-layout>
+<x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -82,8 +77,8 @@
             @csrf
 
             <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-label for="username" value="{{ __('Usuario') }}" />
+                <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">
@@ -112,4 +107,3 @@
         </form>
     </x-authentication-card>
 </x-guest-layout>
- --}}
