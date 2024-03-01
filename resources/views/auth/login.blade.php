@@ -1,4 +1,70 @@
-<x-guest-layout>
+@extends('adminlte::master')
+
+@section('classes_body', 'lockscreen')
+
+@php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'home') )
+
+@if (config('adminlte.use_route_url', false))
+    @php( $dashboard_url = $dashboard_url ? route($dashboard_url) : '' )
+@else
+    @php( $dashboard_url = $dashboard_url ? url($dashboard_url) : '' )
+@endif
+
+@section('body')
+    <div class="lockscreen-wrapper">
+
+        {{-- Lockscreen logo --}}
+        <div class="lockscreen-logo">
+            <a href="{{ $dashboard_url }}">
+                <img src="{{ asset(config('adminlte.logo_img')) }}" height="50">
+                {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
+            </a>
+        </div>
+
+        {{-- Lockscreen user name --}}
+        <div class="lockscreen-name">
+            Bienvenido.
+        </div>
+
+        {{-- Lockscreen item --}}
+        <div class="lockscreen-item">
+
+            <form method="POST" action="{{ route('login') }}"
+                  class="lockscreen-credentials @if(!config('adminlte.usermenu_image'))ml-0 @endif">
+                @csrf
+
+                <div class="input-group">
+                    <input id="password" type="password" name="password"
+                           class="form-control @error('password') is-invalid @enderror"
+                           placeholder="{{ __('adminlte::adminlte.password') }}" required autofocus>
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn">
+                            <i class="fas fa-arrow-right text-muted"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        {{-- Password error alert --}}
+        @error('password')
+            <div class="lockscreen-subitem text-center" role="alert">
+                <b class="text-danger">{{ $message }}</b>
+            </div>
+        @enderror
+
+        {{-- Help block --}}
+        <div class="help-block text-center">
+            {{ __('adminlte::adminlte.confirm_password_message') }}
+        </div>
+
+    </div>
+@stop
+
+
+{{-- <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -46,3 +112,4 @@
         </form>
     </x-authentication-card>
 </x-guest-layout>
+ --}}
