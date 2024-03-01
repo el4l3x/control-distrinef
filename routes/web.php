@@ -24,4 +24,5 @@ Route::middleware([
     });
 
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::post('/gasfriocalor', [DashboardController::class, 'dashboard'])->name('dashboard.dates');
 });

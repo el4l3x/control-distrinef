@@ -8,7 +8,7 @@
             <h1>Gasfriocalor.com</h1>
         </div>
         <div class="col-sm-6 col-lg-3" align="right">
-            <form action="{{ route('gasfriocalor.dates') }}" method="post" id="frmDateRange">
+            <form action="{{ route('dashboard.dates') }}" method="post" id="frmDateRange">
                 @csrf
                 <input type="hidden" id="start" name="start">
                 <input type="hidden" id="end" name="end">
