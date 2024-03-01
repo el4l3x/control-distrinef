@@ -26,15 +26,15 @@ class DashboardController extends Controller
         }
 
         /* Productos Activos */
-        $productsAct = DB::table('product')->where('active', 1)->count();
+        $productsAct = DB::connection('presta')->table('product')->where('active', 1)->count();
         /* Productos Desactivados */
-        $productsDes = DB::table('product')->where('active', 0)->count();
+        $productsDes = DB::connection('presta')->table('product')->where('active', 0)->count();
         /* Productos Actualizados Hoy */
-        $productsUpd = DB::table('product')->where('date_upd', now())->count();
+        $productsUpd = DB::connection('presta')->table('product')->where('date_upd', now())->count();
         /* Productos existentes en la Distribase */
-        $productsDis = DB::table('product')->count();
+        $productsDis = DB::connection('presta')->table('product')->count();
 
-        $select = DB::table('product')
+        $select = DB::connection('presta')->table('product')
         ->join('product_lang', function (JoinClause $joinClause) {
                 $joinClause->on('product.id_product', '=', 'product_lang.id_product');
         })->join('order_detail', function (JoinClause $joinClause) {
