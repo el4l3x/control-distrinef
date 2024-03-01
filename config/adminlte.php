@@ -304,8 +304,8 @@ return [
         // Sidebar items:
         [
             'text' => 'Gasfriocalor',            
-            'route'  => 'gasfriocalor.index',
-            'active' => ['gasfriocalor*']
+            'route'  => 'dashboard',
+            'active' => ['dashboard*']
         ],
         [
             'text' => 'Tuandco',            
