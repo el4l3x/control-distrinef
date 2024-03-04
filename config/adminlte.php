@@ -299,22 +299,24 @@ return [
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
-        ],
-
-        // Sidebar items:
+        ],        
         [
             'text' => 'Gasfriocalor',            
             'route'  => 'dashboard',
-            'active' => ['dashboard*']
+            'active' => ['dashboard*'],
+            'topnav'    => true,
         ],
         [
             'text' => 'Tuandco',            
             'url'  => '#',
+            'topnav'    => true,
         ],
         [
             'text' => 'Distribase',            
             'url'  => '#',
+            'topnav'    => true,
         ],
+        // Sidebar items:
         /* [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
