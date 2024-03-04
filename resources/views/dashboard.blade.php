@@ -91,6 +91,48 @@
                     </div>    
                 </div>    
             </div>
+
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="card-title">Monitor de precios</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            @php
+                            $heads = [
+                                'Producto',
+                                'Gasfriocalor',
+                                'Climahorro',
+                                'Ahorraclima',
+                                'Expertclima',
+                                'Tucalentadoreconomico',
+                            ];
+
+                            $config = [                                
+                                'order' => [[0, 'asc']],
+                            ];
+                            @endphp
+                            <x-adminlte-datatable id="price-monitor" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                                @foreach ($monitorPrice as $row)
+                                    <tr>
+                                        <td>{{ $row['nombre'] }}</td>
+                                        <td>{{ $row['gfc'] }}</td>
+                                        <td>{{ $row['climahorro'] }}</td>
+                                        <td>{{ $row['ahorraclima'] }}</td>
+                                        <td>{{ $row['expertclima'] }}</td>
+                                        <td>{{ $row['tucalentadoreconomico'] }}</td>
+                                    </tr>
+                                @endforeach 
+                            </x-adminlte-datatable>
+                        </div>
+                    </div>    
+                </div>    
+            </div>
         </div>
     </div>
 @stop
