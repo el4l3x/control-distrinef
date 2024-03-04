@@ -47,7 +47,7 @@
 
         <div class="col-md-3">
             {{-- Productos Existentes en la Distribase --}}            
-            <x-adminlte-small-box title="{{ $productsDis }}" text="Productos Existentes en la Distribase" icon="fas fa-shopping-bag" theme="indigo" url="#" url-text="Mas Información"/>
+            <x-adminlte-small-box title="{{ $productsDis }}" text="Productos de la Distribase" icon="fas fa-shopping-bag" theme="indigo" url="#" url-text="Mas Información"/>
         </div>
     </div>
 
@@ -151,5 +151,6 @@
                 $("input#end").val(end);
                 $('form#frmDateRange').submit();
             });
+        })
     </script>
 @stop
