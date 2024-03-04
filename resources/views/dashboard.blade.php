@@ -32,22 +32,22 @@
     <div class="row">
         <div class="col-md-3">
             {{-- Productos Activos Hoy --}}
-            <x-adminlte-info-box title="Productos Activos Hoy" text="{{ $productsAct }}" icon="far fa-lg fa-star"/>
+            <x-adminlte-small-box title="{{ $productsAct }}" text="Productos Activos" icon="fas fa-shopping-bag" theme="info" url="#" url-text="Mas Información"/>
         </div>
         
         <div class="col-md-3">
             {{-- Productos Desactivados Hoy --}}
-            <x-adminlte-info-box title="Productos Desactivados Hoy" text="{{ $productsDes }}" icon="far fa-lg fa-star"/>
+            <x-adminlte-small-box title="{{ $productsDes }}" text="Productos Desactivados" icon="fas fa-shopping-bag" theme="warning" url="#" url-text="Mas Información"/>
         </div>
 
         <div class="col-md-3">
             {{-- Productos Actualizados Hoy --}}
-            <x-adminlte-info-box title="Productos Actualizados Hoy" text="{{ $productsUpd }}" icon="far fa-lg fa-star"/>
+            <x-adminlte-small-box title="{{ $productsUpd }}" text="Productos Actualizados" icon="fas fa-shopping-bag" theme="success" url="#" url-text="Mas Información"/>
         </div>
 
         <div class="col-md-3">
-            {{-- Productos Existentes en la Distribase --}}
-            <x-adminlte-info-box title="Productos Existentes en la Distribase" text="{{ $productsDis }}" icon="far fa-lg fa-star"/>
+            {{-- Productos Existentes en la Distribase --}}            
+            <x-adminlte-small-box title="{{ $productsDis }}" text="Productos Existentes en la Distribase" icon="fas fa-shopping-bag" theme="indigo" url="#" url-text="Mas Información"/>
         </div>
     </div>
 
@@ -151,6 +151,5 @@
                 $("input#end").val(end);
                 $('form#frmDateRange').submit();
             });
-        })
     </script>
 @stop
