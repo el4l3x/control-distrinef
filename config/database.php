@@ -66,7 +66,7 @@ return [
         'presta' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '185.47.244.83'),
+            'host' => '185.47.244.83',
             'port' => env('DB_PORT', '3306'),
             'database' => 'vmpresta',
             'username' => 'vmpresta_user',
