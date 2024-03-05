@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -102,19 +102,37 @@ class DashboardController extends Controller
                 $web->go($url);
                 switch ($shop) {
                     case 'ahorraclima':
-                        $row[$shop] = $web->filter("//div[@class='current-price']//span[@class='price']")->text();
+                        $string = $web->filter("//div[@class='current-price']//span[@class='price']")->text();
+                        $string = Str::remove('€', $string);
+                        $row[$shop] = floatval(Str::replace(',', '.', $string));
                         break;
 
                     case 'expertclima':
-                        $row[$shop] = $web->filter("//div[@class='current-price']//span[@class='current-price-value']")->text();
+                        $string = $web->filter("//div[@class='current-price']//span[@class='current-price-value']")->text();
+                        $string = Str::remove('€', $string);
+                        $row[$shop] = floatval(Str::replace(',', '.', $string));
                         break;
                         
                     case 'tucalentadoreconomico':
-                        $row[$shop] = $web->filter("//div[@class='current-price']//span[@itemprop='price']")->text();
+                        $string = $web->filter("//div[@class='current-price']//span[@itemprop='price']")->text();
+                        $string = Str::remove('€', $string);
+                        $row[$shop] = floatval(Str::replace(',', '.', $string));
+                        break;
+                        
+                    case 'gfc':
+                        $string = $web->filter("//div[@class='current-price']//span[@class='price_with_tax price_pvp']")->text();
+                        $string = Str::remove('€', $string);
+                        $row[$shop] = floatval(Str::replace(',', '.', $string));
                         break;
                     
                     default:
-                        $row[$shop] = $web->filter("//*[@class='product-price current-price-value']")->text();
+                        try {
+                            $string = $web->filter("//*[@class='product-price current-price-value']")->text();
+                            $string = Str::remove('€', $string);
+                            $row[$shop] = floatval(Str::replace(',', '.', $string));
+                        } catch (\Throwable $th) {
+                            return  "Error en el producto {$url} para la tienda {$shop}: ". $th->getMessage();
+                        }
                         break;
                 }
             }
