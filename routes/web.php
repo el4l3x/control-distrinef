@@ -29,16 +29,16 @@ Route::middleware([
         return redirect('gasfriocalor/dashboard');
     });
     Route::post('/gasfriocalor', [DashboardController::class, 'dashboard'])->name('dashboard.dates');
-});
 
-Auth::routes();
-Auth::routes(['register' => false]);
-
-Route::prefix('gasfriocalor')->group(function () {
+    Route::prefix('gasfriocalor')->group(function () {
     Route::get('/dashboard', [GfcController::class, 'dashboard'])->name('gfc.dashboard');
     Route::get('/mejores-productos', [GfcController::class, 'bestProducts'])->name('gfc.bestproducts');
     Route::post('/mejores-productos/rango-fechas', [GfcController::class, 'bestProducts'])->name('gfc.bestproducts.dates');
     Route::get('/monitor-precios', [GfcController::class, 'monPrice'])->name('gfc.monprice');
 });
+});
+
+Auth::routes();
+Auth::routes(['register' => false]);
 
 /* Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); */

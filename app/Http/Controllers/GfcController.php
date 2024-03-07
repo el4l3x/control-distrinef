@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -71,6 +72,10 @@ class GfcController extends Controller
     }
 
     public function monPrice() {
-        return view("gfc.mon_price");
+        $products = Product::paginate(10);
+
+        return view("gfc.mon_price", [
+            "products"=> $products,
+        ]);
     }
 }
