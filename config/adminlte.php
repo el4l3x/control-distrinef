@@ -302,8 +302,8 @@ return [
         ],        
         [
             'text' => 'Gasfriocalor',            
-            'route'  => 'dashboard',
-            'active' => ['dashboard*'],
+            'route'  => 'gfc.dashboard',
+            'active' => ['gasfriocalor*'],
             'topnav'    => true,
         ],
         [
@@ -317,6 +317,21 @@ return [
             'topnav'    => true,
         ],
         // Sidebar items:
+        [
+            'text' => 'Dashboard',
+            'route'  => 'gfc.dashboard',
+            'active' => ['gasfriocalor/dashboard'],
+        ],
+        [
+            'text' => 'Mejores Productos',
+            'route'  => 'gfc.bestproducts',
+            'active' => ['gasfriocalor/mejores-productos'],
+        ],
+        [
+            'text' => 'Monitor de Precios',
+            'route'  => 'gfc.monprice',
+            'active' => ['gasfriocalor/monitor-precios'],
+        ],
 
         /* [
             'type' => 'sidebar-menu-search',
