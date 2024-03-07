@@ -115,12 +115,17 @@
             const startDate = @json($startDate);
             const endDate = @json($endDate);
 
+            moment.locale('es');
+
             $('#range-date').daterangepicker({
                 opens: 'left',
                 ranges: defaultRanges,
                 alwaysShowCalendars: true,
                 startDate: startDate, 
                 endDate: endDate,
+                locale: {
+                    format: "DD/MM/YYYY"
+                }
             }, function(start, end, label) {
                 $("input#start").val(start);
                 $("input#end").val(end);

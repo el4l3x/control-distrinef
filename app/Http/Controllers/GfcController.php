@@ -65,8 +65,8 @@ class GfcController extends Controller
 
         return view("gfc.best_products", [
             "productsMasVendidos" => $select,
-            "startDate" => $start->format('d-m-Y'),
-            "endDate" => $end->format('d-m-Y'),
+            "startDate" => $start->format('d/m/Y'),
+            "endDate" => $end->format('d/m/Y'),
         ]);
     }
 
