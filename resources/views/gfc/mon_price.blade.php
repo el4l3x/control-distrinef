@@ -37,59 +37,19 @@
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
+                                'ajax'  => route('gfc.datatable.monprice'),
+                                'columns'   => [
+                                    ['data' => 'nombre'],
+                                    ['data' => 'gfc_price'],
+                                    ['data' => 'climahorro_price'],
+                                    ['data' => 'ahorraclima_price'],
+                                    ['data' => 'expertclima_price'],
+                                    ['data' => 'tucalentadoreconomico_price'],
+                                ]
                             ];
                             @endphp
                             <x-adminlte-datatable id="price-monitor" :heads="$heads" :config="$config" striped hoverable with-buttons>
-                                @foreach ($products as $row)
-                                    <tr>
-                                        <td>
-                                            <a href="{{ $row['gfc'] }}" target="_blank">
-                                                {{ $row['nombre'] }}
-                                            </a>
-                                        </td>
-                                        <td>{{ number_format($row['gfc_price'], 2) }} €</td>
-                                        <td>
-                                            {{ number_format($row['climahorro_price'], 2) }} € 
-                                            <span @class([
-                                                'badge',
-                                                'badge-success' => $row->climahorro_percent > 0,
-                                                'badge-danger' => $row->climahorro_percent < 0,
-                                            ])>
-                                                {{ $row->climahorro_percent }}%
-                                            </span>
-                                        </td>
-                                        <td>
-                                            {{ number_format($row['ahorraclima_price'], 2) }} €
-                                            <span @class([
-                                                'badge',
-                                                'badge-success' => $row->ahorraclima_percent > 0,
-                                                'badge-danger' => $row->ahorraclima_percent < 0,
-                                            ])>
-                                                {{ $row->ahorraclima_percent }}%
-                                            </span>
-                                        </td>
-                                        <td>
-                                            {{ number_format($row['expertclima_price'], 2) }} €
-                                            <span @class([
-                                                'badge',
-                                                'badge-success' => $row->expertclima_percent > 0,
-                                                'badge-danger' => $row->expertclima_percent < 0,
-                                            ])>
-                                                {{ $row->expertclima_percent }}%
-                                            </span>
-                                        </td>
-                                        <td>
-                                            {{ number_format($row['tucalentadoreconomico_price'], 2) }} €
-                                            <span @class([
-                                                'badge',
-                                                'badge-success' => $row->tucalentadoreconomico_percent > 0,
-                                                'badge-danger' => $row->tucalentadoreconomico_percent < 0,
-                                            ])>
-                                                {{ $row->tucalentadoreconomico_percent }}%
-                                            </span>
-                                        </td>
-                                    </tr>
-                                @endforeach 
+
                             </x-adminlte-datatable>
                         </div>
                     </div>    

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class GfcController extends Controller
 {
@@ -71,11 +72,45 @@ class GfcController extends Controller
         ]);
     }
 
-    public function monPrice() {
-        $products = Product::paginate(10);
+    public function monPrice() {       
+        return view("gfc.mon_price");
+    }
 
-        return view("gfc.mon_price", [
-            "products"=> $products,
-        ]);
+    public function datatable() {
+        $products = Product::query();
+
+        return DataTables::eloquent($products)
+            ->editColumn('nombre', function (Product $product) {
+                return view('gfc.products.datatables.nombre', [
+                    'url' => $product->gfc,
+                    'nombre'    => $product->nombre,
+                ]);
+            })
+            ->editColumn('gfc_price', '{{ number_format($gfc_price, 2, ",", ".") }} €')
+            ->editColumn('climahorro_price', function (Product $product) {
+                return view('gfc.products.datatables.competidor_price', [
+                    'competidor_price' => $product->climahorro_price,
+                    'competidor_percent'    => $product->climahorro_percent,
+                ]);
+            })
+            ->editColumn('ahorraclima_price', function (Product $product) {
+                return view('gfc.products.datatables.competidor_price', [
+                    'competidor_price' => $product->ahorraclima_price,
+                    'competidor_percent'    => $product->ahorraclima_percent,
+                ]);
+            })
+            ->editColumn('expertclima_price', function (Product $product) {
+                return view('gfc.products.datatables.competidor_price', [
+                    'competidor_price' => $product->expertclima_price,
+                    'competidor_percent'    => $product->expertclima_percent,
+                ]);
+            })
+            ->editColumn('tucalentadoreconomico_price', function (Product $product) {
+                return view('gfc.products.datatables.competidor_price', [
+                    'competidor_price' => $product->tucalentadoreconomico_price,
+                    'competidor_percent'    => $product->tucalentadoreconomico_percent,
+                ]);
+            })
+            ->toJson();
     }
 }
