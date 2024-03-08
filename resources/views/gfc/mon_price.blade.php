@@ -42,7 +42,11 @@
                             <x-adminlte-datatable id="price-monitor" :heads="$heads" :config="$config" striped hoverable with-buttons>
                                 @foreach ($products as $row)
                                     <tr>
-                                        <td>{{ $row['nombre'] }}</td>
+                                        <td>
+                                            <a href="{{ $row['gfc'] }}">
+                                                {{ $row['nombre'] }}
+                                            </a>
+                                        </td>
                                         <td>{{ number_format($row['gfc_price'], 2) }} €</td>
                                         <td>
                                             {{ number_format($row['climahorro_price'], 2) }} € 
