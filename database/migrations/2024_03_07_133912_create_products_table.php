@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('ahorraclima_price')->nullable();
             $table->string('expertclima_price')->nullable();
             $table->string('tucalentadoreconomico_price')->nullable();
+            $table->string('climahorro_percent')->nullable();
+            $table->string('ahorraclima_percent')->nullable();
+            $table->string('expertclima_percent')->nullable();
+            $table->string('tucalentadoreconomico_percent')->nullable();
             $table->timestamps();
         });
     }

@@ -38,6 +38,7 @@ class Product extends Model
                 $string = $web->filter("//*[@class='product-price current-price-value']")->text();
                 $string = Str::remove('€', $string);
                 $product->climahorro_price = floatval(Str::replace(',', '.', $string));
+                $product->climahorro_percent = number_format((((($product->gfc_price - $product->climahorro_price)/$product->gfc_price))*100)*-1, 2);
             }
 
             if ($product->ahorraclima_price == null || $product->updated_at < now()->toDateString()) {
@@ -45,6 +46,7 @@ class Product extends Model
                 $string = $web->filter("//div[@class='current-price']//span[@class='price']")->text();
                 $string = Str::remove('€', $string);
                 $product->ahorraclima_price = floatval(Str::replace(',', '.', $string));
+                $product->ahorraclima_percent = number_format((((($product->gfc_price - $product->ahorraclima_price)/$product->gfc_price))*100)*-1, 2);
             }
 
             if ($product->expertclima_price == null || $product->updated_at < now()->toDateString()) {
@@ -52,6 +54,7 @@ class Product extends Model
                 $string = $web->filter("//div[@class='current-price']//span[@class='current-price-value']")->text();
                 $string = Str::remove('€', $string);
                 $product->expertclima_price = floatval(Str::replace(',', '.', $string));
+                $product->expertclima_percent = number_format((((($product->gfc_price - $product->expertclima_price)/$product->gfc_price))*100)*-1, 2);
             }
 
             if ($product->tucalentadoreconomico_price == null || $product->updated_at < now()->toDateString()) {
@@ -59,6 +62,7 @@ class Product extends Model
                 $string = $web->filter("//div[@class='current-price']//span[@itemprop='price']")->text();
                 $string = Str::remove('€', $string);
                 $product->tucalentadoreconomico_price = floatval(Str::replace(',', '.', $string));
+                $product->tucalentadoreconomico_percent = number_format((((($product->gfc_price - $product->tucalentadoreconomico_price)/$product->gfc_price))*100)*-1, 2);
             }
 
             $product->save();
