@@ -59,7 +59,11 @@
                                 @foreach ($productsMasVendidos as $row)
                                     <tr>
                                         <td>{{ $row->SKU }}</td>
-                                        <td>{{ $row->Product_Name }}</td>
+                                        <td>
+                                            <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
+                                                {{ $row->Product_Name }}
+                                            </a>
+                                        </td>
                                         <td>{{ $row->ordered_qty }}</td>
                                         <td>{{ $row->total_products }}</td>
                                     </tr>
