@@ -43,7 +43,7 @@
                                 @foreach ($products as $row)
                                     <tr>
                                         <td>
-                                            <a href="{{ $row['gfc'] }}">
+                                            <a href="{{ $row['gfc'] }}" target="_blank">
                                                 {{ $row['nombre'] }}
                                             </a>
                                         </td>
