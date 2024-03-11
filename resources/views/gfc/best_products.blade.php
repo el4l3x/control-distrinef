@@ -55,7 +55,7 @@
                                 'columns' => [null, null, null, null],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="table7" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                            <x-adminlte-datatable id="productosTable" :heads="$heads" :config="$config" striped hoverable with-buttons>
                                 @foreach ($productsMasVendidos as $row)
                                     <tr>
                                         <td>{{ $row->SKU }}</td>
@@ -69,6 +69,52 @@
                                     </tr>
                                 @endforeach 
                             </x-adminlte-datatable>
+                        </div>
+                    </div>    
+                </div>    
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-12">
+                    <div class="card">
+                        
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="card-title">Aires acondicionados Mas Vendidos ({{ $airesMasVendidos->count() }})</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            @php
+                            $heads = [
+                                'Reference',
+                                'Nombre',
+                                'Categoria',
+                                'Ordenes',
+                                'Cantidad',
+                            ];
+
+                            $config = [                                
+                                'order' => [[0, 'asc']],
+                            ];
+                            @endphp
+                            <x-adminlte-datatable id="bests-aires" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                                @foreach ($airesMasVendidos as $row)
+                                    <tr>
+                                        <td>{{ $row->SKU }}</td>
+                                        <td>
+                                            <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
+                                                {{ $row->Product_Name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $row->categoria }}</td>
+                                        <td>{{ $row->ordered_qty }}</td>
+                                        <td>{{ $row->total_products }}</td>
+                                    </tr>
+                                @endforeach 
+                            </x-adminlte-datatable>
+
                         </div>
                     </div>    
                 </div>    
@@ -136,5 +182,6 @@
                 $('form#frmDateRange').submit();
             });
         });
+
     </script>
 @stop

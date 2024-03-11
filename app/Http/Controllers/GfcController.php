@@ -66,8 +66,73 @@ class GfcController extends Controller
         ->orderBy('total_products', 'DESC')
         ->get();
 
+        $aires = DB::connection('presta')->table('product')
+        ->join('product_lang', function (JoinClause $joinClause) {
+                $joinClause->on('product.id_product', '=', 'product_lang.id_product');
+        })->join('order_detail', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
+        })->join('orders', function (JoinClause $joinClause) use ($start, $end) {
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order')
+                ->where('orders.valid', 1)
+                ->whereBetween('orders.date_add', [$start, $end]);
+        })
+        ->join('category_product', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'category_product.id_product')
+                ->where('category_product.id_category', '=', 770);
+        })        
+        ->join('category', function (JoinClause $joinClause) {
+            $joinClause->on('category_product.id_category', '=', 'category.id_category')
+                    ->where('category.id_category', 770)
+                    ->orWhere('category.id_parent', 770);
+        })
+        ->select(
+            'product.id_product',
+            'product.reference as SKU',
+            'order_detail.product_reference',
+            'order_detail.product_name as Product_Name_Combination',
+            'product_lang.name as Product_Name',
+            'product_lang.link_rewrite as url_name',
+            DB::raw("count(gfc_order_detail.product_id) as ordered_qty"),
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
+            'category_product.id_category as categoria',
+        )->groupBy('product.id_product')
+        ->orderBy('total_products', 'DESC')
+        ->get();
+
+        /* $calderas = DB::connection('presta')->table('product')
+        ->join('product_lang', function (JoinClause $joinClause) {
+                $joinClause->on('product.id_product', '=', 'product_lang.id_product');
+        })->join('order_detail', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
+        })->join('orders', function (JoinClause $joinClause) use ($start, $end) {
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order')
+                ->where('orders.valid', 1)
+                ->whereBetween('orders.date_add', [$start, $end]);
+        })
+        ->join('category_product', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'category_product.id_product');
+        })
+        ->join('category_lang', function (JoinClause $joinClause) {
+            $joinClause->on('category_product.id_category', '=', 'category_lang.id_category')
+                    ->where('category_lang.name', 'LIKE', '%aire%');
+        })
+        ->select(
+            'product.id_product',
+            'product.reference as SKU',
+            'order_detail.product_reference',
+            'order_detail.product_name as Product_Name_Combination',
+            'product_lang.name as Product_Name',
+            'product_lang.link_rewrite as url_name',
+            DB::raw("count(gfc_order_detail.product_id) as ordered_qty"),
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
+            'category_lang.name as categoria',
+        )->groupBy('product.id_product')
+        ->orderBy('total_products', 'DESC')
+        ->get(); */
+
         return view("gfc.best_products", [
             "productsMasVendidos" => $select,
+            "airesMasVendidos"  =>  $aires,
             "startDate" => $start->format('d/m/Y'),
             "endDate" => $end->format('d/m/Y'),
         ]);
