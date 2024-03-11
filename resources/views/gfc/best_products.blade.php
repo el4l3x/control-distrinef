@@ -75,7 +75,7 @@
             </div>
 
             <div class="row mb-4">
-                <div class="col-lg-12">
+                <div class="col-lg-6 col-md-12">
                     <div class="card">
                         
                         <div class="card-header border-0">
@@ -90,9 +90,7 @@
                             $heads = [
                                 'Reference',
                                 'Nombre',
-                                'Categoria',
                                 'Ordenes',
-                                'Validez',
                                 'Cantidad',
                             ];
 
@@ -109,9 +107,7 @@
                                                 {{ $row->Product_Name }}
                                             </a>
                                         </td>
-                                        <td>{{ $row->categoria }}</td>
                                         <td>{{ $row->ordered_qty }}</td>
-                                        <td>{{ $row->valid_order }}</td>
                                         <td>{{ $row->total_products }}</td>
                                     </tr>
                                 @endforeach 
@@ -119,7 +115,50 @@
 
                         </div>
                     </div>    
-                </div>    
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="card-title">Calderas Mas Vendidas ({{ $calderasMasVendidos->count() }})</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            @php
+                            $heads = [
+                                'Reference',
+                                'Nombre',
+                                'Ordenes',
+                                'Cantidad',
+                            ];
+
+                            $config = [                                
+                                'order' => [[0, 'asc']],
+                                'resposive'  => true,
+                            ];
+                            @endphp
+                            <x-adminlte-datatable id="bests-calderas" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                                @foreach ($calderasMasVendidos as $row)
+                                    <tr>
+                                        <td>{{ $row->SKU }}</td>
+                                        <td>
+                                            <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
+                                                {{ $row->Product_Name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $row->ordered_qty }}</td>
+                                        <td>{{ $row->total_products }}</td>
+                                    </tr>
+                                @endforeach 
+                            </x-adminlte-datatable>
+
+                        </div>
+                    </div>    
+                </div>
             </div>
 
         </div>
