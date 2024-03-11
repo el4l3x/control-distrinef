@@ -89,6 +89,7 @@ class GfcController extends Controller
             'product_lang.link_rewrite as url_name',
             DB::raw("count(gfc_order_detail.product_id) as ordered_qty"),
             DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
+            'orders.valid as valid_order',
             'category_product.id_category as categoria',
         )->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')

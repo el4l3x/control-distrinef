@@ -92,6 +92,7 @@
                                 'Nombre',
                                 'Categoria',
                                 'Ordenes',
+                                'Validez',
                                 'Cantidad',
                             ];
 
@@ -110,6 +111,7 @@
                                         </td>
                                         <td>{{ $row->categoria }}</td>
                                         <td>{{ $row->ordered_qty }}</td>
+                                        <td>{{ $row->valid_order }}</td>
                                         <td>{{ $row->total_products }}</td>
                                     </tr>
                                 @endforeach 
