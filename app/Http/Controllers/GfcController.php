@@ -77,12 +77,9 @@ class GfcController extends Controller
                 ->whereBetween('orders.date_add', [$start, $end]);
         })
         ->join('category_product', function (JoinClause $joinClause) {
-            $joinClause->on('product.id_product', '=', 'category_product.id_product');
+            $joinClause->on('product.id_product', '=', 'category_product.id_product')
+                ->where('category_product.id_category', 770);
         })        
-        ->leftJoin('category', function (JoinClause $joinClause) {
-            $joinClause->on('category_product.id_category', '=', 'category.id_category')
-                    ->where('category.id_parent', 770);
-        })
         ->select(
             'product.id_product',
             'product.reference as SKU',
