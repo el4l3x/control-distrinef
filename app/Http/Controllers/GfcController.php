@@ -79,10 +79,9 @@ class GfcController extends Controller
         ->join('category_product', function (JoinClause $joinClause) {
             $joinClause->on('product.id_product', '=', 'category_product.id_product');
         })        
-        ->rightJoin('category', function (JoinClause $joinClause) {
+        ->leftJoin('category', function (JoinClause $joinClause) {
             $joinClause->on('category_product.id_category', '=', 'category.id_category')
-                    ->where('category.id_category', 770)
-                    ->orWhere('category.id_parent', 770);
+                    ->where('category.id_parent', 770);
         })
         ->select(
             'product.id_product',
