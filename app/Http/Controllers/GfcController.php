@@ -66,6 +66,16 @@ class GfcController extends Controller
         ->orderBy('total_products', 'DESC')
         ->get();
 
+        $subcategoriesAires = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('id_parent', 770)
+            ->orWhere('id_category', 770)
+            ->get();
+
+        $data = $subcategoriesAires->map(function($item){
+            return $item->id_category;
+        });
+
         $aires = DB::connection('presta')->table('product')
         ->join('product_lang', function (JoinClause $joinClause) {
                 $joinClause->on('product.id_product', '=', 'product_lang.id_product');
@@ -76,9 +86,9 @@ class GfcController extends Controller
                 ->where('orders.valid', 1)
                 ->whereBetween('orders.date_add', [$start, $end]);
         })
-        ->join('category_product', function (JoinClause $joinClause) {
-            $joinClause->on('product.id_product', '=', 'category_product.id_product');
-                /* ->where('category_product.id_category', 770); */
+        ->join('category_product', function (JoinClause $joinClause) use ($data) {
+            $joinClause->on('product.id_product', '=', 'category_product.id_product')
+                ->whereIn('category_product.id_category', $data);
         })        
         ->select(
             'product.id_product',
