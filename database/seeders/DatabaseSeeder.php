@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('11111111'),
         ]);
 
-        $this->call([
+        /* $this->call([
             ProductSeeder::class,
-        ]);
+        ]); */
     }
 }
