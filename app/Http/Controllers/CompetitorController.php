@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Competitor;
 use App\Http\Requests\StoreCompetitorRequest;
 use App\Http\Requests\UpdateCompetitorRequest;
+use Illuminate\Support\Facades\DB;
 
 class CompetitorController extends Controller
 {
@@ -21,7 +22,7 @@ class CompetitorController extends Controller
      */
     public function create()
     {
-        //
+        return view('gfc.competitors.create');
     }
 
     /**
@@ -29,7 +30,23 @@ class CompetitorController extends Controller
      */
     public function store(StoreCompetitorRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $competitor = new Competitor();
+            $competitor->nombre = $request->nombre;
+            $competitor->filtro = $request->filtro;
+            $competitor->save();
+
+            DB::commit();
+
+            return redirect()->route('gfc.monprice');
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return $th->getMessage();
+            /* return redirect()->route('gfc.monprice'); */
+        }
     }
 
     /**

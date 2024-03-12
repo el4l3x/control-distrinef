@@ -3,9 +3,17 @@
 @section('title', 'Gasfriocalor | Monitor de Precios')
 
 @section('content_header')
-    <div class="row">
-        <div class="col-sm-6 col-lg-9">
-            <h1>Gasfriocalor.com</h1>
+    <div class="row justify-content-between">
+        <h1>Gasfriocalor.com</h1>    
+
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Agregar
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="{{ route('gfc.competidors.create') }}">Competidor</a>
+                <a class="dropdown-item" href="{{ route('gfc.products.create') }}">Producto</a>
+            </div>
         </div>
     </div>    
 @stop

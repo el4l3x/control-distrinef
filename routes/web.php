@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GfcController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +39,10 @@ Route::middleware([
     Route::get('/monitor-precios', [GfcController::class, 'monPrice'])->name('gfc.monprice');
 
     Route::get('datatable/monitor-precios', [GfcController::class, 'datatable'])->name('gfc.datatable.monprice');
+
+    Route::get('competidor/nuevo', [CompetitorController::class, 'create'])->name('gfc.competidors.create');
+    Route::post('competidor/nuevo', [CompetitorController::class, 'store'])->name('gfc.competidors.store');
+    Route::get('producto/nuevo', [ProductController::class, 'create'])->name('gfc.products.create');
 });
 });
 

@@ -11,7 +11,7 @@ class StoreCompetitorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreCompetitorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre'    => 'required|unique:competitors,nombre',
+            'filtro'    => 'required',
         ];
     }
 }
