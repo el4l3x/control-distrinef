@@ -121,8 +121,8 @@
                                 @foreach ($monitorPrice as $row)
                                     <tr>
                                         <td>{{ $row['nombre'] }}</td>
-                                        <td>{{ $row['gfc'] }}</td>
-                                        <td>{{ $row['climahorro'] }}</td>
+                                        <td>{{ number_format($row['gfc'], 2) }} €</td>
+                                        <td>{{ $row['climahorro'] }} {{ ($row['climahorro']/$row['gfc'])-1 }}</td>
                                         <td>{{ $row['ahorraclima'] }}</td>
                                         <td>{{ $row['expertclima'] }}</td>
                                         <td>{{ $row['tucalentadoreconomico'] }}</td>

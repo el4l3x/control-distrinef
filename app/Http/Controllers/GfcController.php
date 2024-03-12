@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competitor;
 use App\Models\Product;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
@@ -191,5 +192,17 @@ class GfcController extends Controller
                 ]);
             })
             ->toJson();
+    }
+
+    public function productCreate() {
+        $competitors = Competitor::all();
+
+        return view("gfc.products.create", [
+            'competitors'   => $competitors,
+        ]);
+    }
+
+    public function competidorCreate() {
+        return view("gfc.competidores.create");
     }
 }

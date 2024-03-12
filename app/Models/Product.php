@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
@@ -13,14 +14,10 @@ class Product extends Model
 
     protected $fillable = [
         "nombre",
-        "gfc",
-        "climahorro",
-        "ahorraclima",
-        "expertclima",
-        "tucalentadoreconomico",
+        "url",
     ];
 
-    protected static function boot()
+    /* protected static function boot()
     {
         parent::boot();
 
@@ -93,6 +90,10 @@ class Product extends Model
             
             $product->save();
         });
+    } */
+
+    public function competitors() : BelongsToMany {
+        return $this->belongsToMany(Competitor::class, 'competitor_product', 'product_id', 'id');
     }
 
 }

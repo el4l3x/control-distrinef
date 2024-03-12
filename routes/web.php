@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GfcController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,13 +33,19 @@ Route::middleware([
     /* Route::post('/gasfriocalor', [DashboardController::class, 'dashboard'])->name('dashboard.dates'); */
 
     Route::prefix('gasfriocalor')->group(function () {
-    Route::get('/dashboard', [GfcController::class, 'dashboard'])->name('gfc.dashboard');
-    Route::get('/mejores-productos', [GfcController::class, 'bestProducts'])->name('gfc.bestproducts');
-    Route::post('/mejores-productos/rango-fechas', [GfcController::class, 'bestProducts'])->name('gfc.bestproducts.dates');
-    Route::get('/monitor-precios', [GfcController::class, 'monPrice'])->name('gfc.monprice');
+        Route::get('/dashboard', [GfcController::class, 'dashboard'])->name('gfc.dashboard');
+        Route::get('/mejores-productos', [GfcController::class, 'bestProducts'])->name('gfc.bestproducts');
+        Route::post('/mejores-productos/rango-fechas', [GfcController::class, 'bestProducts'])->name('gfc.bestproducts.dates');
+        
+        Route::get('/monitor-precios', [GfcController::class, 'monPrice'])->name('gfc.monprice');
+        Route::get('datatable/monitor-precios', [GfcController::class, 'datatable'])->name('gfc.datatable.monprice');
 
-    Route::get('datatable/monitor-precios', [GfcController::class, 'datatable'])->name('gfc.datatable.monprice');
-});
+        Route::get('/monitor-precios/producto/crear', [GfcController::class, 'productCreate'])->name('gfc.monprice.product.create');
+        Route::get('/monitor-precios/competidor/crear', [GfcController::class, 'competidorCreate'])->name('gfc.monprice.competidor.create');
+
+        Route::post('/competidor', [CompetitorController::class,  'store'])->name('gfc.competidor.store');
+        Route::post('/producto', [ProductController::class,  'store'])->name('gfc.product.store');
+    });
 });
 
 Auth::routes();

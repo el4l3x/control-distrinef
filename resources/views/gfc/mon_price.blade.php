@@ -7,6 +7,18 @@
         <div class="col-sm-6 col-lg-9">
             <h1>Gasfriocalor.com</h1>
         </div>
+
+        <div class="col-sm-6 col-lg-3">
+            <div class="dropdown float-right">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuAgregar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Agregar
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuBAgregar">
+                    <a class="dropdown-item" href="{{ route('gfc.monprice.competidor.create') }}">Competidor</a>
+                    <a class="dropdown-item" href="{{ route('gfc.monprice.product.create') }}">Producto</a>
+                </div>
+            </div>
+        </div>
     </div>    
 @stop
 

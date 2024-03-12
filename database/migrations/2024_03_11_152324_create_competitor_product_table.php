@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('competitor_product', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('slug');
-            $table->string('url');
+            $table->unsignedBigInteger('competitor_id');
+            $table->unsignedBigInteger('product_id');
+            $table->string('url')->nullable();
             $table->string('filter')->nullable();
             $table->decimal('price')->nullable();
             $table->decimal('percent')->nullable();
+
+            $table->foreign('competitor_id')->references('id')->on('competitors')->onDelete('CASCADE');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('competitor_product');
     }
 };
