@@ -4,7 +4,10 @@ use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GfcController;
 use App\Http\Controllers\ProductController;
+use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +49,30 @@ Route::middleware([
     Route::get('producto/nuevo', [ProductController::class, 'create'])->name('gfc.products.create');
     Route::post('producto/nuevo', [ProductController::class, 'store'])->name('gfc.products.store');
 });
+});
+
+Route::get('/monitor/scrap', function () {
+    $web = new \Spekulatius\PHPScraper\PHPScraper;
+    $products = Product::with('competidor')->get();
+
+    foreach ($products as $key => $value) {
+        foreach ($value->competidor as $key => $data) {
+            try {
+                $web->go($data->pivot->url);
+                $string = $web->filter($data->filtro)->text();
+                $string = Str::remove('€', $string);
+                $price = floatval(Str::replace(',', '.', $string));
+
+                $value->competidor()->updateExistingPivot($data->id, [
+                    'precio' => $price,
+                ]);
+            } catch (\Throwable $th) {
+                return $th->getMessage();
+                /* Log::info("------------ Fallo el scrap ------------");
+                Log::info($th->getMessage()); */
+            }
+        }        
+    }
 });
 
 Auth::routes();
