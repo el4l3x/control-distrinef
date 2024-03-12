@@ -40,19 +40,30 @@ class ProductController extends Controller
 
             $competitors = Competitor::all();
 
+            $product = new Product();
+            $product->nombre = $request->nombre;
+            $product->save();
+
             foreach ($competitors as $key => $value) {
                 if ($request->has('competitor-'.$value->id) && $request->input('competitor-'.$value->id) != null) {
-                    $web = new PHPScraper();
-                    $web->go($request->input('competitor-'.$value->id));
-                    $string = $web->filter($value->filtro)->text();
-                    $string = Str::remove('€', $string);                    
+                    try {
+                        $web = new PHPScraper();
+                        $web->go($request->input('competitor-'.$value->id));
+                        $string = $web->filter($value->filtro)->text();
+                        $string = Str::remove('€', $string);
+                    } catch (\Throwable $th) {
+                        $string = null;
+                    }
 
-                    $product = new Product();
-                    $product->nombre = $request->nombre;
-                    $product->url = $request->input('competitor-'.$value->id);
-                    $product->precio = floatval(Str::replace(',', '.', $string));
-                    $product->competitor_id = $value->id;
-                    $product->save();
+                    $product->competidor()->attach($value->id, [
+                        'url'       => $request->input('competitor-'.$value->id),
+                        'precio'    => floatval(Str::replace(',', '.', $string)),
+                    ]);
+
+                    /* Product::updateOrCreate(
+                        ['nombre' => $request->nombre, 'competitor_id' => $value->id], 
+                        ['url' => $request->input('competitor-'.$value->id), 'precio' => floatval(Str::replace(',', '.', $string))]
+                    ); */
                 }
             }            
 
@@ -60,9 +71,9 @@ class ProductController extends Controller
 
             return redirect()->route('gfc.monprice');
         } catch (\Throwable $th) {
-            //throw $th;
             DB::rollBack();
-            return $th->getMessage();
+            throw $th;
+            //return $th->getMessage();
             /* return redirect()->route('gfc.monprice'); */
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competitor;
 use App\Models\Product;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
@@ -151,8 +152,22 @@ class GfcController extends Controller
         ]);
     }
 
-    public function monPrice() {       
-        return view("gfc.mon_price");
+    public function monPrice() {
+        $products = Product::with('competidor')->get();
+        $competitors = Competitor::with('products')->get();
+        $gfcData = Competitor::with('products')->where('nombre', 'LIKE', '%gasfriocalor%')->first();
+
+        $arrayCompetitors = $competitors->map(function($item){
+            return $item->nombre;
+        });
+
+        $arrayCompetitors->prepend('Producto');
+
+        return view("gfc.mon_price", [
+            'products'  => $products,
+            'competitors'=> $arrayCompetitors,
+            'gfcData'=> $gfcData,
+        ]);
     }
 
     public function datatable() {

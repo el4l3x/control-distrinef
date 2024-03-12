@@ -34,30 +34,38 @@
 
                         <div class="card-body">
                             @php
-                            $heads = [
-                                'Producto',
-                                'Gasfriocalor',
-                                'Climahorro',
-                                'Ahorraclima',
-                                'Expertclima',
-                                'Tucalentadoreconomico',
-                            ];
+                            $heads = $competitors;
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
-                                'ajax'  => route('gfc.datatable.monprice'),
-                                'columns'   => [
+                                /* 'ajax'  => route('gfc.datatable.monprice'), */
+                                /* 'columns'   => [
                                     ['data' => 'nombre'],
                                     ['data' => 'gfc_price'],
                                     ['data' => 'climahorro_price'],
                                     ['data' => 'ahorraclima_price'],
                                     ['data' => 'expertclima_price'],
                                     ['data' => 'tucalentadoreconomico_price'],
-                                ]
+                                ] */
                             ];
                             @endphp
                             <x-adminlte-datatable id="price-monitor" :heads="$heads" :config="$config" striped hoverable with-buttons>
-
+                                @foreach ($products as $item)
+                                    <tr>
+                                        <td>{{ $item->nombre }}</td>
+                                        @for ($i = 0; $i < $competitors->count()-1; $i++)
+                                            @if (isset($item->competidor[$i]))
+                                                <td>
+                                                    {{ number_format($item->competidor[$i]->pivot->precio, 2, ",", ".") }} €
+                                                </td>
+                                            @else
+                                                <td>
+                                                    
+                                                </td>
+                                            @endif                                            
+                                        @endfor
+                                    </tr>                                    
+                                @endforeach
                             </x-adminlte-datatable>
                         </div>
                     </div>    

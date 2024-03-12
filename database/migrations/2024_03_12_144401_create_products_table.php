@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            /* $table->string('url');
             $table->decimal('precio');
-            $table->string('url');
             $table->unsignedBigInteger('competitor_id');
 
-            $table->foreign('competitor_id')->references( 'id' )->on( 'competitors' )->onDelete('CASCADE');
+            $table->foreign('competitor_id')->references( 'id' )->on( 'competitors' )->onDelete('CASCADE'); */
             $table->timestamps();
         });
     }
