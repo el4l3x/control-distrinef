@@ -39,7 +39,7 @@ class Product extends Model
             if ($product->climahorro_price == null || $product->updated_at < now()->toDateString()) {
                 try {
                     $web->go($product->climahorro);
-                    $string = $web->filter("//*[@class='product-price current-price-value']")->text();
+                    $string = $web->filter("*[@class='product-price current-price-value']")->text();
                     $string = Str::remove('€', $string);
                     $product->climahorro_price = floatval(Str::replace(',', '.', $string));
                     $product->climahorro_percent = number_format((((($product->gfc_price - $product->climahorro_price)/$product->gfc_price))*100)*-1, 2);
