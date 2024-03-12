@@ -42,7 +42,9 @@ Route::middleware([
 
     Route::get('competidor/nuevo', [CompetitorController::class, 'create'])->name('gfc.competidors.create');
     Route::post('competidor/nuevo', [CompetitorController::class, 'store'])->name('gfc.competidors.store');
+
     Route::get('producto/nuevo', [ProductController::class, 'create'])->name('gfc.products.create');
+    Route::post('producto/nuevo', [ProductController::class, 'store'])->name('gfc.products.store');
 });
 });
 
