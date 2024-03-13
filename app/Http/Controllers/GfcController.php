@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Competitor;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -69,6 +70,7 @@ class GfcController extends Controller
 
         $subcategoriesAires = DB::connection('presta')->table('category')
             ->select('id_category')
+            ->where('active', 1)
             ->where('id_parent', 770)
             ->orWhere('id_category', 770)
             ->get();
@@ -80,17 +82,19 @@ class GfcController extends Controller
         $aires = DB::connection('presta')->table('product')
         ->join('product_lang', function (JoinClause $joinClause) {
                 $joinClause->on('product.id_product', '=', 'product_lang.id_product');
-        })->join('order_detail', function (JoinClause $joinClause) {
-            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
-        })->join('orders', function (JoinClause $joinClause) use ($start, $end) {
-            $joinClause->on('orders.id_order', '=', 'order_detail.id_order')
-                ->where('orders.valid', 1)
-                ->whereBetween('orders.date_add', [$start, $end]);
         })
         ->join('category_product', function (JoinClause $joinClause) use ($arrayCategoriesAires) {
             $joinClause->on('product.id_product', '=', 'category_product.id_product')
                 ->whereIn('category_product.id_category', $arrayCategoriesAires);
         })
+        ->join('order_detail', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
+        })
+        ->join('orders', function (JoinClause $joinClause) use ($start, $end) {
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order')
+                ->where('orders.valid', 1)
+                ->whereBetween('orders.date_add', [$start, $end]);
+        })        
         ->select(
             'product.id_product',
             'product.reference as SKU',
@@ -153,60 +157,50 @@ class GfcController extends Controller
     }
 
     public function monPrice() {
-        $products = Product::with('competidor')->get();
         $competitors = Competitor::with('products')->get();
-        $gfcData = Competitor::with('products')->where('nombre', 'LIKE', '%gasfriocalor%')->first();
 
-        $arrayCompetitors = $competitors->map(function($item){
+        $arrayHeads = $competitors->map(function($item){
             return $item->nombre;
         });
 
-        $arrayCompetitors->prepend('Producto');
+        $arrayHeads->prepend('Producto');
 
-        /* return $gfcData; */
+        $arrayColumns = $competitors->map(function($item){
+            return ['data'  => $item->nombre, 'orderable' => false];
+        });
+
+        $arrayColumns->prepend(['data'  => 'nombre']);
 
         return view("gfc.mon_price", [
-            'products'  => $products,
-            'competitors'=> $arrayCompetitors,
-            'gfcData'=> $gfcData,
+            'arrayHeads'=> $arrayHeads,
+            'arrayColumns'=> $arrayColumns,
         ]);
     }
 
     public function datatable() {
         $products = Product::query();
 
-        return DataTables::eloquent($products)
-            ->editColumn('nombre', function (Product $product) {
+        $competitors = Competitor::with('products')->get();
+        $gfcData = Competitor::with('products')->where('nombre', 'LIKE', '%gasfriocalor%')->first();
+
+        $dt = DataTables::eloquent($products)
+            ->editColumn('nombre', function (Product $product) use ($gfcData) {
                 return view('gfc.products.datatables.nombre', [
-                    'url' => $product->gfc,
+                    'url' => $product->competidor()->find($gfcData->id)->pivot->url,
                     'nombre'    => $product->nombre,
                 ]);
-            })
-            ->editColumn('gfc_price', '{{ number_format($gfc_price, 2, ",", ".") }} €')
-            ->editColumn('climahorro_price', function (Product $product) {
+            });
+
+        foreach ($competitors as $competitor) {
+            $dt->addColumn($competitor->nombre, function (Product $product) use ($gfcData, $competitor) {
                 return view('gfc.products.datatables.competidor_price', [
-                    'competidor_price' => $product->climahorro_price,
-                    'competidor_percent'    => $product->climahorro_percent,
+                    'gfcData' => $gfcData,
+                    'product'    => $product,
+                    'competitor'    => $competitor,
                 ]);
-            })
-            ->editColumn('ahorraclima_price', function (Product $product) {
-                return view('gfc.products.datatables.competidor_price', [
-                    'competidor_price' => $product->ahorraclima_price,
-                    'competidor_percent'    => $product->ahorraclima_percent,
-                ]);
-            })
-            ->editColumn('expertclima_price', function (Product $product) {
-                return view('gfc.products.datatables.competidor_price', [
-                    'competidor_price' => $product->expertclima_price,
-                    'competidor_percent'    => $product->expertclima_percent,
-                ]);
-            })
-            ->editColumn('tucalentadoreconomico_price', function (Product $product) {
-                return view('gfc.products.datatables.competidor_price', [
-                    'competidor_price' => $product->tucalentadoreconomico_price,
-                    'competidor_percent'    => $product->tucalentadoreconomico_percent,
-                ]);
-            })
-            ->toJson();
+            });
+        }        
+
+        return $dt->toJson();
     }
 }

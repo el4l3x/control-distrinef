@@ -34,53 +34,14 @@
 
                         <div class="card-body">
                             @php
-                            $heads = $competitors;
-
                             $config = [                                
                                 'order' => [[0, 'asc']],
-                                /* 'ajax'  => route('gfc.datatable.monprice'), */
-                                /* 'columns'   => [
-                                    ['data' => 'nombre'],
-                                    ['data' => 'gfc_price'],
-                                    ['data' => 'climahorro_price'],
-                                    ['data' => 'ahorraclima_price'],
-                                    ['data' => 'expertclima_price'],
-                                    ['data' => 'tucalentadoreconomico_price'],
-                                ] */
+                                'ajax'  => route('gfc.datatable.monprice'),
+                                'columns'   => $arrayColumns,
                             ];
                             @endphp
-                            <x-adminlte-datatable id="price-monitor" :heads="$heads" :config="$config" striped hoverable with-buttons>
-                                @foreach ($products as $item)
-                                    <tr>
-                                        <td>{{ $item->nombre }}</td>
-                                        @php
-                                            $gfc_price = $gfcData->products()->find($item->id)->pivot->precio
-                                        @endphp
-                                        @for ($i = 0; $i < $competitors->count()-1; $i++)
-                                            @if (isset($item->competidor[$i]))
-                                                @php
-                                                    $percent = number_format((((($gfc_price - $item->competidor[$i]->pivot->precio)/$gfc_price))*100)*-1, 2);
-                                                @endphp
-                                                <td>
-                                                    {{ number_format($item->competidor[$i]->pivot->precio, 2, ",", ".") }} €
-                                                    @if (Str::lower($item->competidor[$i]->nombre) != 'gasfriocalor')
-                                                        <span @class([
-                                                            'badge',
-                                                            'badge-success' => $percent > 0,
-                                                            'badge-danger' => $percent < 0,
-                                                        ])>
-                                                            {{ $percent }}%
-                                                        </span>
-                                                    @endif
-                                                </td>
-                                            @else
-                                                <td>
-                                                    
-                                                </td>
-                                            @endif                                            
-                                        @endfor
-                                    </tr>                                    
-                                @endforeach
+                            <x-adminlte-datatable id="price-monitor" :heads="$arrayHeads" :config="$config" striped hoverable with-buttons>
+                                
                             </x-adminlte-datatable>
                         </div>
                     </div>    
