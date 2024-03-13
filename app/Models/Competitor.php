@@ -16,6 +16,10 @@ class Competitor extends Model
     } */
 
     public function products() : BelongsToMany {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('precio', 'url');
     }
+
+    /* public function productsGfc($id) : BelongsToMany {
+        return $this->belongsToMany(Product::class);
+    } */
 }

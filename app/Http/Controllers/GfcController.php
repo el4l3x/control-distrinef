@@ -163,6 +163,8 @@ class GfcController extends Controller
 
         $arrayCompetitors->prepend('Producto');
 
+        /* return $gfcData; */
+
         return view("gfc.mon_price", [
             'products'  => $products,
             'competitors'=> $arrayCompetitors,
