@@ -42,6 +42,8 @@ Route::middleware([
     Route::get('/monitor-precios', [GfcController::class, 'monPrice'])->name('gfc.monprice');
 
     Route::get('datatable/monitor-precios', [GfcController::class, 'datatable'])->name('gfc.datatable.monprice');
+    Route::get('datatable/mejores-productos', [GfcController::class, 'datatableMejoresProductos'])->name('gfc.datatable.bestproducts');
+    Route::get('datatable/mejores-aires', [GfcController::class, 'datatableMejoresAires'])->name('gfc.datatable.bestaires');
 
     Route::get('competidor/nuevo', [CompetitorController::class, 'create'])->name('gfc.competidors.create');
     Route::post('competidor/nuevo', [CompetitorController::class, 'store'])->name('gfc.competidors.store');

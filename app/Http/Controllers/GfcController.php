@@ -46,28 +46,6 @@ class GfcController extends Controller
             $end = $request->date('end');
         }
 
-        $select = DB::connection('presta')->table('product')
-        ->join('product_lang', function (JoinClause $joinClause) {
-                $joinClause->on('product.id_product', '=', 'product_lang.id_product');
-        })->join('order_detail', function (JoinClause $joinClause) {
-            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
-        })->join('orders', function (JoinClause $joinClause) use ($start, $end) {
-            $joinClause->on('orders.id_order', '=', 'order_detail.id_order')
-                ->where('orders.valid', 1)
-                ->whereBetween('orders.date_add', [$start, $end]);
-        })->select(
-            'product.id_product',
-            'product.reference as SKU',
-            'order_detail.product_reference',
-            'order_detail.product_name as Product_Name_Combination',
-            'product_lang.name as Product_Name',
-            'product_lang.link_rewrite as url_name',
-            DB::raw("count(gfc_order_detail.product_id) as ordered_qty"),
-            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
-        )->groupBy('product.id_product')
-        ->orderBy('total_products', 'DESC')
-        ->get();
-
         $subcategoriesAires = DB::connection('presta')->table('category')
             ->select('id_category')
             ->where('active', 1)
@@ -108,21 +86,13 @@ class GfcController extends Controller
         })        
         ->select(
             'product.id_product',
-            'product.reference as SKU',
-            'order_detail.product_reference',
-            'order_detail.product_name as Product_Name_Combination',
-            'product_lang.name as Product_Name',
-            'product_lang.link_rewrite as url_name',
-            DB::raw("count(gfc_order_detail.id_order) as ordered_qty"),
-            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
-            DB::raw('GROUP_CONCAT(DISTINCT gfc_orders.id_order ORDER BY gfc_orders.id_order  SEPARATOR", ") as orders_ids'),
         )
         ->where('orders.valid', 1)
         ->whereBetween('orders.date_add', [$start, $end])
         ->whereIn('product.id_category_default', $arrayCategoriesAiresThree)
         ->groupBy('product.id_product')
-        ->orderBy('total_products', 'DESC')
-        ->get();
+        ->get()
+        ->count();
 
         $subcategoriesCalderas = DB::connection('presta')->table('category')
             ->select('id_category')
@@ -355,7 +325,6 @@ class GfcController extends Controller
         ->get();
 
         return view("gfc.best_products", [
-            "productsMasVendidos" => $select,
             "airesMasVendidos"  =>  $aires,
             "calderasMasVendidos"  =>  $calderas,
             "aerotermiaMasVendidos"  =>  $aerotermia,
@@ -364,6 +333,8 @@ class GfcController extends Controller
             "termosElectricosMasVendidos"  =>  $termosElectricos,
             "startDate" => $start->format('d/m/Y'),
             "endDate" => $end->format('d/m/Y'),
+            "startDateFormat" => $start,
+            "endDateFormat" => $end,
         ]);
     }
 
@@ -411,6 +382,134 @@ class GfcController extends Controller
                 ]);
             });
         }        
+
+        return $dt->toJson();
+    }
+
+    public function datatableMejoresProductos(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'start' => 'required',
+            'end' => 'required',
+        ]);
+ 
+        if ($validator->fails()) {
+            $start = Carbon::yesterday();
+            $end = Carbon::now();
+        } else {
+            $start = $request->date('start'); 
+            $end = $request->date('end');
+        }
+
+        $select = DB::connection('presta')->table('product')
+        ->join('product_lang', function (JoinClause $joinClause) {
+                $joinClause->on('product.id_product', '=', 'product_lang.id_product');
+        })->join('order_detail', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
+        })->join('orders', function (JoinClause $joinClause) use ($start, $end) {
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order')
+                ->where('orders.valid', 1)
+                ->whereBetween('orders.date_add', [$start, $end]);
+        })->select(
+            'product.id_product',
+            'product.reference as SKU',
+            'order_detail.product_reference',
+            'order_detail.product_name as Product_Name_Combination',
+            'product_lang.name as Product_Name',
+            'product_lang.link_rewrite as url_name',
+            DB::raw("count(gfc_order_detail.product_id) as ordered_qty"),
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
+        )->groupBy('product.id_product')
+        ->orderBy('total_products', 'DESC');
+
+        $dt = DataTables::of($select)
+            ->editColumn('Product_Name_Combination', function ($product) {
+                return view('gfc.products.datatables.nombre', [
+                    'url' => 'https://www.gasfriocalor.com/'.$product->url_name,
+                    'nombre'    => $product->Product_Name,
+                ]);
+            });
+
+        return $dt->toJson();
+    }
+
+    public function datatableMejoresAires(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'start' => 'required',
+            'end' => 'required',
+        ]);
+ 
+        if ($validator->fails()) {
+            $start = Carbon::yesterday();
+            $end = Carbon::now();
+        } else {
+            $start = $request->date('start'); 
+            $end = $request->date('end');
+        }
+
+        $subcategoriesAires = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('active', 1)
+            ->where('id_parent', 770)
+            ->orWhere('id_category', 770)
+            ->get();
+        $arrayCategoriesAires = $subcategoriesAires->map(function($item){
+            return $item->id_category;
+        });
+        $subcategoriesAiresTwo = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('active', 1)
+            ->where('id_category', 770)
+            ->orWhereIn('id_parent', $arrayCategoriesAires)
+            ->get();
+        $arrayCategoriesAiresTwo = $subcategoriesAiresTwo->map(function($item){
+            return $item->id_category;
+        });
+        $subcategoriesAiresThree = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('active', 1)
+            ->where('id_category', 770)
+            ->orWhereIn('id_parent', $arrayCategoriesAiresTwo)
+            ->get();
+        $arrayCategoriesAiresThree = $subcategoriesAiresThree->map(function($item){
+            return $item->id_category;
+        });
+
+        $aires = DB::connection('presta')->table('product')
+        ->join('product_lang', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'product_lang.id_product');
+        })
+        ->join('order_detail', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
+        })
+        ->join('orders', function (JoinClause $joinClause) use ($start, $end) {
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order');                
+        })        
+        ->select(
+            'product.id_product',
+            'product.reference as SKU',
+            'order_detail.product_reference',
+            'order_detail.product_name as Product_Name_Combination',
+            'product_lang.name as Product_Name',
+            'product_lang.link_rewrite as url_name',
+            DB::raw("count(gfc_order_detail.id_order) as ordered_qty"),
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
+            DB::raw('GROUP_CONCAT(DISTINCT gfc_orders.id_order ORDER BY gfc_orders.id_order  SEPARATOR", ") as orders_ids'),
+        )
+        ->where('orders.valid', 1)
+        ->whereBetween('orders.date_add', [$start, $end])
+        ->whereIn('product.id_category_default', $arrayCategoriesAiresThree)
+        ->groupBy('product.id_product')
+        ->orderBy('total_products', 'DESC');
+
+        $dt = DataTables::of($aires)
+            ->editColumn('Product_Name_Combination', function ($product) {
+                return view('gfc.products.datatables.nombre', [
+                    'url' => 'https://www.gasfriocalor.com/'.$product->url_name,
+                    'nombre'    => $product->Product_Name,
+                ]);
+            });                 
 
         return $dt->toJson();
     }
