@@ -319,7 +319,7 @@
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Caletadores a Gas Mas Vendidos ({{ $calentadoresGasMasVendidos->count() }})</h2>
+                                <h2 class="card-title">Caletadores a Gas Mas Vendidos ({{ $calentadoresGasMasVendidos }})</h2>
                             </div>
                         </div>
 
@@ -334,26 +334,35 @@
                             ];
 
                             $config = [                                
-                                'order' => [[0, 'asc']],
-                                'columns' => [['width' => '10px'], null, null, null],
+                                'ajax'  => [
+                                    'url'   => route('gfc.datatable.bestcaletadoresgas'),
+                                    'data'  =>   [
+                                        'start' => $startDateFormat->format("Y-m-d"),
+                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                    ]
+                                ],
+                                'order' => [[3, 'desc']],
+                                'columns' => [
+                                    [
+                                        'data'  => "SKU",
+                                        'width' => '10px'
+                                    ], 
+                                    [
+                                        'data'  => "Product_Name_Combination",
+                                    ], 
+                                    [
+                                        'data'  => "ordered_qty",
+                                    ], 
+                                    [
+                                        'data'  => "total_products",
+                                    ]
+                                ],
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="bests-caletadores-gas" :heads="$heads" :config="$config" striped hoverable with-buttons>
-                                @foreach ($calentadoresGasMasVendidos as $row)
-                                    <tr>
-                                        <td>{{ $row->SKU }}</td>
-                                        <td>
-                                            <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
-                                                {{ $row->Product_Name }}
-                                            </a>
-                                        </td>
-                                        <td>{{ $row->ordered_qty }} ({{ $row->orders_ids }})</td>
-                                        <td>{{ $row->total_products }}</td>
-                                    </tr>
-                                @endforeach 
+                            <x-adminlte-datatable id="bests-caletadores-gas" :heads="$heads" :config="$config" striped hoverable with-buttons>                                
                             </x-adminlte-datatable>
 
                         </div>
