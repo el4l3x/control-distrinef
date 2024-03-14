@@ -271,12 +271,97 @@ class GfcController extends Controller
         ->orderBy('total_products', 'DESC')
         ->get();
 
+        $subcategoriesCalentadoresGas = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('id_parent', 769)
+            ->orWhere('id_category', 769)
+            ->get();
+        $arrayCategoriesCalentadoresGas = $subcategoriesCalentadoresGas->map(function($item){
+            return $item->id_category;
+        });
+
+        $calentadoresGas = DB::connection('presta')->table('product')
+        ->join('product_lang', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'product_lang.id_product');
+        })
+        ->join('order_detail', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
+        })
+        ->join('orders', function (JoinClause $joinClause) use ($start, $end) {
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order');                
+        })        
+        ->select(
+            'product.id_product',
+            'product.reference as SKU',
+            'order_detail.product_reference',
+            'order_detail.product_name as Product_Name_Combination',
+            'product_lang.name as Product_Name',
+            'product_lang.link_rewrite as url_name',
+            DB::raw("count(gfc_order_detail.id_order) as ordered_qty"),
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
+            DB::raw('GROUP_CONCAT(DISTINCT gfc_orders.id_order ORDER BY gfc_orders.id_order  SEPARATOR", ") as orders_ids'),
+        )
+        ->where('orders.valid', 1)
+        ->whereBetween('orders.date_add', [$start, $end])
+        ->whereIn('product.id_category_default', $arrayCategoriesCalentadoresGas)
+        ->groupBy('product.id_product')
+        ->orderBy('total_products', 'DESC')
+        ->get();
+
+        $subcategoriesTermosElectricos = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('id_parent', 771)
+            ->orWhere('id_category', 771)
+            ->get();
+        $arrayCategoriesTermosElectricos = $subcategoriesTermosElectricos->map(function($item){
+            return $item->id_category;
+        });
+        $subcategoriesTermosElectricosTwo = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('active', 1)
+            ->where('id_category', 771)
+            ->orWhereIn('id_parent', $arrayCategoriesTermosElectricos)
+            ->get();
+        $arrayCategoriesTermosElectricosTwo = $subcategoriesTermosElectricosTwo->map(function($item){
+            return $item->id_category;
+        });
+
+        $termosElectricos = DB::connection('presta')->table('product')
+        ->join('product_lang', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'product_lang.id_product');
+        })
+        ->join('order_detail', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'order_detail.product_id');
+        })
+        ->join('orders', function (JoinClause $joinClause) use ($start, $end) {
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order');                
+        })        
+        ->select(
+            'product.id_product',
+            'product.reference as SKU',
+            'order_detail.product_reference',
+            'order_detail.product_name as Product_Name_Combination',
+            'product_lang.name as Product_Name',
+            'product_lang.link_rewrite as url_name',
+            DB::raw("count(gfc_order_detail.id_order) as ordered_qty"),
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
+            DB::raw('GROUP_CONCAT(DISTINCT gfc_orders.id_order ORDER BY gfc_orders.id_order  SEPARATOR", ") as orders_ids'),
+        )
+        ->where('orders.valid', 1)
+        ->whereBetween('orders.date_add', [$start, $end])
+        ->whereIn('product.id_category_default', $arrayCategoriesTermosElectricosTwo)
+        ->groupBy('product.id_product')
+        ->orderBy('total_products', 'DESC')
+        ->get();
+
         return view("gfc.best_products", [
             "productsMasVendidos" => $select,
             "airesMasVendidos"  =>  $aires,
             "calderasMasVendidos"  =>  $calderas,
             "aerotermiaMasVendidos"  =>  $aerotermia,
             "ventilacionMasVendidos"  =>  $ventilacion,
+            "calentadoresGasMasVendidos"  =>  $calentadoresGas,
+            "termosElectricosMasVendidos"  =>  $termosElectricos,
             "startDate" => $start->format('d/m/Y'),
             "endDate" => $end->format('d/m/Y'),
         ]);

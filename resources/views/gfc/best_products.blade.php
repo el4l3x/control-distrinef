@@ -263,6 +263,99 @@
                 </div>
             </div>
 
+            <div class="row mb-4">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="card-title">Caletadores a Gas Mas Vendidos ({{ $calentadoresGasMasVendidos->count() }})</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            @php
+                            $heads = [
+                                'Reference',
+                                'Nombre',
+                                'Pedidos',
+                                'Cantidad',
+                            ];
+
+                            $config = [                                
+                                'order' => [[0, 'asc']],
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
+                            ];
+                            @endphp
+                            <x-adminlte-datatable id="bests-caletadores-gas" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                                @foreach ($calentadoresGasMasVendidos as $row)
+                                    <tr>
+                                        <td>{{ $row->id_product }}</td>
+                                        <td>
+                                            <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
+                                                {{ $row->Product_Name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $row->ordered_qty }} ({{ $row->orders_ids }})</td>
+                                        <td>{{ $row->total_products }}</td>
+                                    </tr>
+                                @endforeach 
+                            </x-adminlte-datatable>
+
+                        </div>
+                    </div>    
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="card-title">Termos Electricos Mas Vendidos ({{ $termosElectricosMasVendidos->count() }})</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            @php
+                            $heads = [
+                                'Reference',
+                                'Nombre',
+                                'Pedidos',
+                                'Cantidad',
+                            ];
+
+                            $config = [                                
+                                'order' => [[0, 'asc']],
+                                'resposive'  => true,
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
+                            ];
+                            @endphp
+                            <x-adminlte-datatable id="bests-termos-electricos" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                                @foreach ($termosElectricosMasVendidos as $row)
+                                    <tr>
+                                        <td>{{ $row->SKU }}</td>
+                                        <td>
+                                            <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
+                                                {{ $row->Product_Name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $row->ordered_qty }} ({{ $row->orders_ids }})</td>
+                                        <td>{{ $row->total_products }}</td>
+                                    </tr>
+                                @endforeach 
+                            </x-adminlte-datatable>
+
+                        </div>
+                    </div>    
+                </div>
+            </div>
+
         </div>
     </div>
 @stop
