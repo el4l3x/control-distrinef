@@ -8,11 +8,12 @@
             <h1>Gasfriocalor.com</h1>
         </div>
         <div class="col-sm-6 col-lg-3" align="right">
-            <form action="{{ route('gfc.bestproducts.dates') }}" method="post" id="frmDateRange">
+            <form action="{{ route('gfc.bestproducts.dates') }}" method="post" id="frmDateRange" class="form-inline">
                 @csrf
                 <input type="hidden" id="start" name="start">
                 <input type="hidden" id="end" name="end">
                 <div class="form-group">
+                    <label for="range-date" style="margin-right: 5px">Desde - Hasta</label>
                     <div class="input-group input-group-sm">
                         <div class="input-group-prepend">
                             <div class="input-group-text bg-dark">
@@ -44,15 +45,15 @@
                         <div class="card-body">
                             @php
                             $heads = [
-                                'Reference',
+                                ['label' => 'Ref'],
                                 'Nombre',
                                 ['label' => 'Pedidos'],
-                                ['label' => 'Cantidad'],
+                                ['label' => 'N°'],
                             ];
 
                             $config = [                                
                                 'order' => [[1, 'asc']],
-                                'columns' => [null, null, null, null],
+                                'columns' => [['width' => '10px'], null, null, null],
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
                                 ],
@@ -91,14 +92,15 @@
 
                             @php
                             $heads = [
-                                'Reference',
+                                ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'Cantidad',
+                                'N°',
                             ];
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
+                                'columns' => [['width' => '10px'], null, null, null],
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
                                 ],
@@ -107,7 +109,7 @@
                             <x-adminlte-datatable id="bests-aires" :heads="$heads" :config="$config" striped hoverable with-buttons>
                                 @foreach ($airesMasVendidos as $row)
                                     <tr>
-                                        <td>{{ $row->id_product }}</td>
+                                        <td>{{ $row->SKU }}</td>
                                         <td>
                                             <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
                                                 {{ $row->Product_Name }}
@@ -136,14 +138,15 @@
 
                             @php
                             $heads = [
-                                'Reference',
+                                ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'Cantidad',
+                                'N°',
                             ];
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
+                                'columns' => [['width' => '10px'], null, null, null],
                                 'resposive'  => true,
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
@@ -184,14 +187,15 @@
 
                             @php
                             $heads = [
-                                'Reference',
+                                ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'Cantidad',
+                                'N°',
                             ];
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
+                                'columns' => [['width' => '10px'], null, null, null],
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
                                 ],
@@ -200,7 +204,7 @@
                             <x-adminlte-datatable id="bests-aerotermia" :heads="$heads" :config="$config" striped hoverable with-buttons>
                                 @foreach ($aerotermiaMasVendidos as $row)
                                     <tr>
-                                        <td>{{ $row->id_product }}</td>
+                                        <td>{{ $row->SKU }}</td>
                                         <td>
                                             <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
                                                 {{ $row->Product_Name }}
@@ -229,15 +233,16 @@
 
                             @php
                             $heads = [
-                                'Reference',
+                                ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'Cantidad',
+                                'N°',
                             ];
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
                                 'resposive'  => true,
+                                'columns' => [['width' => '10px'], null, null, null],
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
                                 ],
@@ -277,14 +282,15 @@
 
                             @php
                             $heads = [
-                                'Reference',
-                                'Nombre',
-                                'Pedidos',
-                                'Cantidad',
+                                ['label' => 'Ref', 'width' => 1],
+                                ['label' => 'Nombre'],
+                                ['label' => 'Pedidos', 'width' => 1],
+                                ['label' => 'N°'],
                             ];
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
+                                'columns' => [['width' => '10px'], null, null, null],
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
                                 ],
@@ -293,7 +299,7 @@
                             <x-adminlte-datatable id="bests-caletadores-gas" :heads="$heads" :config="$config" striped hoverable with-buttons>
                                 @foreach ($calentadoresGasMasVendidos as $row)
                                     <tr>
-                                        <td>{{ $row->id_product }}</td>
+                                        <td>{{ $row->SKU }}</td>
                                         <td>
                                             <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
                                                 {{ $row->Product_Name }}
@@ -322,14 +328,15 @@
 
                             @php
                             $heads = [
-                                'Reference',
+                                ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'Cantidad',
+                                'N°',
                             ];
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
+                                'columns' => [['width' => '10px'], null, null, null],
                                 'resposive'  => true,
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
