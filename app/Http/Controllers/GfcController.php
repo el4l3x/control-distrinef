@@ -74,26 +74,37 @@ class GfcController extends Controller
             ->where('id_parent', 770)
             ->orWhere('id_category', 770)
             ->get();
-
         $arrayCategoriesAires = $subcategoriesAires->map(function($item){
+            return $item->id_category;
+        });
+        $subcategoriesAiresTwo = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('active', 1)
+            ->where('id_category', 770)
+            ->orWhereIn('id_parent', $arrayCategoriesAires)
+            ->get();
+        $arrayCategoriesAiresTwo = $subcategoriesAiresTwo->map(function($item){
+            return $item->id_category;
+        });
+        $subcategoriesAiresThree = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('active', 1)
+            ->where('id_category', 770)
+            ->orWhereIn('id_parent', $arrayCategoriesAiresTwo)
+            ->get();
+        $arrayCategoriesAiresThree = $subcategoriesAiresThree->map(function($item){
             return $item->id_category;
         });
 
         $aires = DB::connection('presta')->table('product')
         ->join('product_lang', function (JoinClause $joinClause) {
-                $joinClause->on('product.id_product', '=', 'product_lang.id_product');
-        })
-        ->join('category_product', function (JoinClause $joinClause) use ($arrayCategoriesAires) {
-            $joinClause->on('product.id_product', '=', 'category_product.id_product')
-                ->whereIn('category_product.id_category', $arrayCategoriesAires);
+            $joinClause->on('product.id_product', '=', 'product_lang.id_product');
         })
         ->join('order_detail', function (JoinClause $joinClause) {
             $joinClause->on('product.id_product', '=', 'order_detail.product_id');
         })
         ->join('orders', function (JoinClause $joinClause) use ($start, $end) {
-            $joinClause->on('orders.id_order', '=', 'order_detail.id_order')
-                ->where('orders.valid', 1)
-                ->whereBetween('orders.date_add', [$start, $end]);
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order');                
         })        
         ->select(
             'product.id_product',
@@ -102,10 +113,14 @@ class GfcController extends Controller
             'order_detail.product_name as Product_Name_Combination',
             'product_lang.name as Product_Name',
             'product_lang.link_rewrite as url_name',
-            DB::raw("count(gfc_order_detail.product_id) as ordered_qty"),
+            DB::raw("count(gfc_order_detail.id_order) as ordered_qty"),
             DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
-            'category_product.id_category as categoria',
-        )->groupBy('product.id_product')
+            DB::raw('GROUP_CONCAT(DISTINCT gfc_orders.id_order ORDER BY gfc_orders.id_order  SEPARATOR", ") as orders_ids'),
+        )
+        ->where('orders.valid', 1)
+        ->whereBetween('orders.date_add', [$start, $end])
+        ->whereIn('product.id_category_default', $arrayCategoriesAiresThree)
+        ->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')
         ->get();
 
@@ -114,25 +129,38 @@ class GfcController extends Controller
             ->where('id_parent', 768)
             ->orWhere('id_category', 768)
             ->get();
-
         $arrayCategoriesCalderas = $subcategoriesCalderas->map(function($item){
+            return $item->id_category;
+        });
+        $subcategoriesCalderasTwo = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('active', 1)
+            ->where('id_category', 768)
+            ->orWhereIn('id_parent', $arrayCategoriesCalderas)
+            ->get();
+        $arrayCategoriesCalderasTwo = $subcategoriesCalderasTwo->map(function($item){
+            return $item->id_category;
+        });
+        $subcategoriesCalderasThree = DB::connection('presta')->table('category')
+            ->select('id_category')
+            ->where('active', 1)
+            ->where('id_category', 768)
+            ->orWhereIn('id_parent', $arrayCategoriesCalderasTwo)
+            ->get();
+        $arrayCategoriesCalderasThree = $subcategoriesCalderasThree->map(function($item){
             return $item->id_category;
         });
 
         $calderas = DB::connection('presta')->table('product')
         ->join('product_lang', function (JoinClause $joinClause) {
-                $joinClause->on('product.id_product', '=', 'product_lang.id_product');
-        })->join('order_detail', function (JoinClause $joinClause) {
+            $joinClause->on('product.id_product', '=', 'product_lang.id_product');
+        })
+        ->join('order_detail', function (JoinClause $joinClause) {
             $joinClause->on('product.id_product', '=', 'order_detail.product_id');
-        })->join('orders', function (JoinClause $joinClause) use ($start, $end) {
-            $joinClause->on('orders.id_order', '=', 'order_detail.id_order')
-                ->where('orders.valid', 1)
-                ->whereBetween('orders.date_add', [$start, $end]);
         })
-        ->join('category_product', function (JoinClause $joinClause) use ($arrayCategoriesCalderas) {
-            $joinClause->on('product.id_product', '=', 'category_product.id_product')
-                ->whereIn('category_product.id_category', $arrayCategoriesCalderas);
-        })
+        ->join('orders', function (JoinClause $joinClause) use ($start, $end) {
+            $joinClause->on('orders.id_order', '=', 'order_detail.id_order');                
+        })        
         ->select(
             'product.id_product',
             'product.reference as SKU',
@@ -140,10 +168,14 @@ class GfcController extends Controller
             'order_detail.product_name as Product_Name_Combination',
             'product_lang.name as Product_Name',
             'product_lang.link_rewrite as url_name',
-            DB::raw("count(gfc_order_detail.product_id) as ordered_qty"),
+            DB::raw("count(gfc_order_detail.id_order) as ordered_qty"),
             DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
-            'category_product.id_category as categoria',
-        )->groupBy('product.id_product')
+            DB::raw('GROUP_CONCAT(DISTINCT gfc_orders.id_order ORDER BY gfc_orders.id_order  SEPARATOR", ") as orders_ids'),
+        )
+        ->where('orders.valid', 1)
+        ->whereBetween('orders.date_add', [$start, $end])
+        ->whereIn('product.id_category_default', $arrayCategoriesCalderasThree)
+        ->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')
         ->get();
 

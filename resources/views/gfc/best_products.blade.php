@@ -90,7 +90,7 @@
                             $heads = [
                                 'Reference',
                                 'Nombre',
-                                'Ordenes',
+                                'N° Pedidos',
                                 'Cantidad',
                             ];
 
@@ -101,13 +101,13 @@
                             <x-adminlte-datatable id="bests-aires" :heads="$heads" :config="$config" striped hoverable with-buttons>
                                 @foreach ($airesMasVendidos as $row)
                                     <tr>
-                                        <td>{{ $row->SKU }}</td>
+                                        <td>{{ $row->id_product }}</td>
                                         <td>
                                             <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
                                                 {{ $row->Product_Name }}
                                             </a>
                                         </td>
-                                        <td>{{ $row->ordered_qty }}</td>
+                                        <td>{{ $row->ordered_qty }} ({{ $row->orders_ids }})</td>
                                         <td>{{ $row->total_products }}</td>
                                     </tr>
                                 @endforeach 
@@ -150,7 +150,7 @@
                                                 {{ $row->Product_Name }}
                                             </a>
                                         </td>
-                                        <td>{{ $row->ordered_qty }}</td>
+                                        <td>{{ $row->ordered_qty }} ({{ $row->orders_ids }})</td>
                                         <td>{{ $row->total_products }}</td>
                                     </tr>
                                 @endforeach 
