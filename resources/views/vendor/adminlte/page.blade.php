@@ -15,10 +15,10 @@
     <div class="wrapper">
 
         {{-- Preloader Animation --}}
-        @if($layoutHelper->isPreloaderEnabled())
-            @include('adminlte::partials.common.preloader')
-        @endif
-
+        {{-- @if($layoutHelper->isPreloaderEnabled())
+        @endif --}}
+        @include('adminlte::partials.common.preloader')
+        
         {{-- Top Navbar --}}
         @if($layoutHelper->isLayoutTopnavEnabled())
             @include('adminlte::partials.navbar.navbar-layout-topnav')
