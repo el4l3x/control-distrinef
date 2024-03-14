@@ -53,6 +53,9 @@
                             $config = [                                
                                 'order' => [[1, 'asc']],
                                 'columns' => [null, null, null, null],
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
                             ];
                             @endphp
                             <x-adminlte-datatable id="productosTable" :heads="$heads" :config="$config" striped hoverable with-buttons>
@@ -96,6 +99,9 @@
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
                             ];
                             @endphp
                             <x-adminlte-datatable id="bests-aires" :heads="$heads" :config="$config" striped hoverable with-buttons>
@@ -139,6 +145,9 @@
                             $config = [                                
                                 'order' => [[0, 'asc']],
                                 'resposive'  => true,
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
                             ];
                             @endphp
                             <x-adminlte-datatable id="bests-calderas" :heads="$heads" :config="$config" striped hoverable with-buttons>
@@ -183,6 +192,9 @@
 
                             $config = [                                
                                 'order' => [[0, 'asc']],
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
                             ];
                             @endphp
                             <x-adminlte-datatable id="bests-aerotermia" :heads="$heads" :config="$config" striped hoverable with-buttons>
@@ -226,6 +238,9 @@
                             $config = [                                
                                 'order' => [[0, 'asc']],
                                 'resposive'  => true,
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
                             ];
                             @endphp
                             <x-adminlte-datatable id="bests-ventilacion" :heads="$heads" :config="$config" striped hoverable with-buttons>

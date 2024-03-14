@@ -38,6 +38,9 @@
                                 'order' => [[0, 'asc']],
                                 'ajax'  => route('gfc.datatable.monprice'),
                                 'columns'   => $arrayColumns,
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
                             ];
                             @endphp
                             <x-adminlte-datatable id="price-monitor" :heads="$arrayHeads" :config="$config" striped hoverable with-buttons>
