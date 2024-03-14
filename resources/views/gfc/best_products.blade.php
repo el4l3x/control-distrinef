@@ -46,7 +46,7 @@
                             $heads = [
                                 'Reference',
                                 'Nombre',
-                                ['label' => 'Ordenes'],
+                                ['label' => 'Pedidos'],
                                 ['label' => 'Cantidad'],
                             ];
 
@@ -90,7 +90,7 @@
                             $heads = [
                                 'Reference',
                                 'Nombre',
-                                'N° Pedidos',
+                                'Pedidos',
                                 'Cantidad',
                             ];
 
@@ -132,7 +132,7 @@
                             $heads = [
                                 'Reference',
                                 'Nombre',
-                                'Ordenes',
+                                'Pedidos',
                                 'Cantidad',
                             ];
 
@@ -143,6 +143,93 @@
                             @endphp
                             <x-adminlte-datatable id="bests-calderas" :heads="$heads" :config="$config" striped hoverable with-buttons>
                                 @foreach ($calderasMasVendidos as $row)
+                                    <tr>
+                                        <td>{{ $row->SKU }}</td>
+                                        <td>
+                                            <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
+                                                {{ $row->Product_Name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $row->ordered_qty }} ({{ $row->orders_ids }})</td>
+                                        <td>{{ $row->total_products }}</td>
+                                    </tr>
+                                @endforeach 
+                            </x-adminlte-datatable>
+
+                        </div>
+                    </div>    
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="card-title">Aerotermia Mas Vendida ({{ $aerotermiaMasVendidos->count() }})</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            @php
+                            $heads = [
+                                'Reference',
+                                'Nombre',
+                                'Pedidos',
+                                'Cantidad',
+                            ];
+
+                            $config = [                                
+                                'order' => [[0, 'asc']],
+                            ];
+                            @endphp
+                            <x-adminlte-datatable id="bests-aerotermia" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                                @foreach ($aerotermiaMasVendidos as $row)
+                                    <tr>
+                                        <td>{{ $row->id_product }}</td>
+                                        <td>
+                                            <a href="https://www.gasfriocalor.com/{{ $row->url_name }}" target="_blank">
+                                                {{ $row->Product_Name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $row->ordered_qty }} ({{ $row->orders_ids }})</td>
+                                        <td>{{ $row->total_products }}</td>
+                                    </tr>
+                                @endforeach 
+                            </x-adminlte-datatable>
+
+                        </div>
+                    </div>    
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        
+                        <div class="card-header border-0">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="card-title">Ventilación Mas Vendidas ({{ $ventilacionMasVendidos->count() }})</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            @php
+                            $heads = [
+                                'Reference',
+                                'Nombre',
+                                'Pedidos',
+                                'Cantidad',
+                            ];
+
+                            $config = [                                
+                                'order' => [[0, 'asc']],
+                                'resposive'  => true,
+                            ];
+                            @endphp
+                            <x-adminlte-datatable id="bests-ventilacion" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                                @foreach ($ventilacionMasVendidos as $row)
                                     <tr>
                                         <td>{{ $row->SKU }}</td>
                                         <td>
