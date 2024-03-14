@@ -48,6 +48,7 @@ Route::middleware([
     Route::get('datatable/mejores-aerotermia', [GfcController::class, 'datatableMejoresAerotermia'])->name('gfc.datatable.bestaerotermia');
     Route::get('datatable/mejores-ventilacion', [GfcController::class, 'datatableMejoresVentilacion'])->name('gfc.datatable.bestventilacion');
     Route::get('datatable/mejores-caletadoresgas', [GfcController::class, 'datatableMejoresCaletadoresgas'])->name('gfc.datatable.bestcaletadoresgas');
+    Route::get('datatable/mejores-termoselectricos', [GfcController::class, 'datatableMejoresTermoselectricos'])->name('gfc.datatable.besttermoselectricos');
 
     Route::get('competidor/nuevo', [CompetitorController::class, 'create'])->name('gfc.competidors.create');
     Route::post('competidor/nuevo', [CompetitorController::class, 'store'])->name('gfc.competidors.store');
