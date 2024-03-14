@@ -45,6 +45,7 @@ Route::middleware([
     Route::get('datatable/mejores-productos', [GfcController::class, 'datatableMejoresProductos'])->name('gfc.datatable.bestproducts');
     Route::get('datatable/mejores-aires', [GfcController::class, 'datatableMejoresAires'])->name('gfc.datatable.bestaires');
     Route::get('datatable/mejores-calderas', [GfcController::class, 'datatableMejoresCalderas'])->name('gfc.datatable.bestcalderas');
+    Route::get('datatable/mejores-aerotermia', [GfcController::class, 'datatableMejoresAerotermia'])->name('gfc.datatable.bestaerotermia');
 
     Route::get('competidor/nuevo', [CompetitorController::class, 'create'])->name('gfc.competidors.create');
     Route::post('competidor/nuevo', [CompetitorController::class, 'store'])->name('gfc.competidors.store');
