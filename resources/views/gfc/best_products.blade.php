@@ -3,29 +3,26 @@
 @section('title', 'Gasfriocalor | Mejores Productos')
 
 @section('content_header')
-    <div class="row">
-        <div class="col-sm-6 col-lg-9">
-            <h1>Gasfriocalor.com</h1>
-        </div>
-        <div class="col-sm-6 col-lg-3" align="right">
-            <form action="{{ route('gfc.bestproducts.dates') }}" method="post" id="frmDateRange" class="form-inline">
-                @csrf
-                <input type="hidden" id="start" name="start">
-                <input type="hidden" id="end" name="end">
-                <div class="form-group">
-                    <label for="range-date" style="margin-right: 5px">Desde - Hasta</label>
-                    <div class="input-group input-group-sm">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text bg-dark">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                        </div>
-                        <input id="range-date" class="form-control" name="range-date">
-                    </div>
-                </div>
-            </form>
+    <div class="row justify-content-between">
+        <h1>Gasfriocalor.com</h1>
 
-        </div>
+        <form action="{{ route('gfc.bestproducts.dates') }}" method="post" id="frmDateRange" class="form-inline">
+            @csrf
+            <input type="hidden" id="start" name="start">
+            <input type="hidden" id="end" name="end">
+            <div class="form-group">
+                <label for="range-date" style="margin-right: 5px">Desde - Hasta</label>
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text bg-dark">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                    </div>
+                    <input id="range-date" class="form-control" name="range-date">
+                </div>
+            </div>
+        </form>
+
     </div>    
 @stop
 
