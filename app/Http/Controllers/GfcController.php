@@ -19,16 +19,19 @@ class GfcController extends Controller
         $productsAct = DB::connection('presta')->table('product')->where('active', 1)->count();
         /* Productos Desactivados */
         $productsDes = DB::connection('presta')->table('product')->where('active', 0)->count();
-        /* Productos Actualizados Hoy */
-        $productsUpd = DB::connection('presta')->table('product')->where('date_upd', now())->count();
-        /* Productos existentes en la Distribase */
-        $productsDis = DB::connection('presta')->table('product')->count();
+        /* Combinaciones Activas */
+        $productsUpd = DB::connection('presta')->table('product_attribute')
+            ->select(
+                'product_attribute.id_product'
+            )
+            ->join('product', 'product_attribute.id_product', '=', 'product.id_product')
+            ->where('product.active', 1)
+            ->count();
         
         return view("gfc.dashboard", [
             "productsAct"   => $productsAct,
             "productsDes"   => $productsDes,
             "productsUpd"   => $productsUpd,
-            "productsDis"   => $productsDis,
         ]);
     }
 

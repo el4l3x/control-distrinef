@@ -23,13 +23,35 @@
         </div>
 
         <div class="col-md-3">
-            {{-- Productos Actualizados Hoy --}}
-            <x-adminlte-small-box title="{{ $productsUpd }}" text="Productos Actualizados" icon="fas fa-shopping-bag" theme="success" url="#" url-text="Mas Información"/>
+            {{-- Combinaciones Activas --}}
+            <x-adminlte-small-box title="{{ $productsUpd }}" text="Combinaciones Activas" icon="fas fa-shopping-bag" theme="success" url="#" url-text="Mas Información"/>
         </div>
 
         <div class="col-md-3">
-            {{-- Productos Existentes en la Distribase --}}            
-            <x-adminlte-small-box title="{{ $productsDis }}" text="Productos de la Distribase" icon="fas fa-shopping-bag" theme="indigo" url="#" url-text="Mas Información"/>
+            {{-- Productos Productos Nunca Vendidos --}}            
+            <x-adminlte-small-box title="16.765*" text="Productos Nunca Vendidos" icon="fas fa-shopping-bag" theme="indigo" url="#" url-text="Mas Información"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            {{-- Matcheados con Distribase --}}
+            <x-adminlte-small-box title="12.355*" text="Matcheados con Distribase" icon="fas fa-shopping-bag" theme="info" url="#" url-text="Mas Información"/>
+        </div>
+        
+        <div class="col-md-3">
+            {{-- NO Matcheados con Distribase --}}
+            <x-adminlte-small-box title="10.325*" text="NO Matcheados con Distribase" icon="fas fa-shopping-bag" theme="warning" url="#" url-text="Mas Información"/>
+        </div>
+
+        <div class="col-md-3">
+            {{-- Productos con Stock en CSV --}}
+            <x-adminlte-small-box title="6.780*" text="Productos con Stock en CSV" icon="fas fa-shopping-bag" theme="success" url="#" url-text="Mas Información"/>
+        </div>
+
+        <div class="col-md-3">
+            {{-- Productos con Neto en CSV --}}            
+            <x-adminlte-small-box title="5.890*" text="Productos con Neto en CSV" icon="fas fa-shopping-bag" theme="indigo" url="#" url-text="Mas Información"/>
         </div>
     </div>
 @stop
