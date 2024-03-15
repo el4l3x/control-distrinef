@@ -149,8 +149,8 @@ return [
     */
 
     'layout_topnav' => null,
-    'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_boxed' => false,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
@@ -305,16 +305,19 @@ return [
             'route'  => 'gfc.dashboard',
             'active' => ['gasfriocalor*'],
             'topnav'    => true,
+            'classes' => 'd-none d-sm-inline-block',
         ],
         [
             'text' => 'Tuandco',            
             'url'  => '#',
             'topnav'    => true,
+            'classes' => 'd-none d-sm-inline-block',
         ],
         [
             'text' => 'Distribase',            
             'url'  => '#',
             'topnav'    => true,
+            'classes' => 'd-none d-sm-inline-block',
         ],
         // Sidebar items:
         [

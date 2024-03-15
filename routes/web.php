@@ -68,9 +68,9 @@ Route::get('/monitor/scrap', function () {
                 $web->go($data->pivot->url);
                 $string = $web->filter($data->filtro)->text();
                 $string = Str::remove('€', $string);
-                $number = Str::replace('.', '', $string);
                 $number = Str::replace(',', '.', $string);
-                $price = floatval($number);
+                $numberFloat = Str::replace('.', '', $number);
+                $price = floatval($numberFloat);
 
                 $value->competidor()->updateExistingPivot($data->id, [
                     'precio' => $price,

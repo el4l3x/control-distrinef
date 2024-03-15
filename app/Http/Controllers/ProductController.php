@@ -51,15 +51,15 @@ class ProductController extends Controller
                         $web->go($request->input('competitor-'.$value->id));
                         $string = $web->filter($value->filtro)->text();
                         $string = Str::remove('€', $string);
-                        $number = Str::replace('.', '', $string);
                         $number = Str::replace(',', '.', $string);
+                        $numberFloat = Str::replace('.', '', $number);
                     } catch (\Throwable $th) {
                         $string = null;
                     }
 
                     $product->competidor()->attach($value->id, [
                         'url'       => $request->input('competitor-'.$value->id),
-                        'precio'    => floatval($number),
+                        'precio'    => floatval($numberFloat),
                     ]);
 
                     /* Product::updateOrCreate(
