@@ -31,7 +31,7 @@
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card card-custom">
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
@@ -86,7 +86,7 @@
 
             <div class="row mb-4">
                 <div class="col-lg-6 col-md-12">
-                    <div class="card">
+                    <div class="card card-custom">
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
@@ -141,7 +141,7 @@
                 </div>
 
                 <div class="col-lg-6 col-md-12">
-                    <div class="card">
+                    <div class="card card-custom">
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
@@ -199,7 +199,7 @@
 
             <div class="row mb-4">
                 <div class="col-lg-6 col-md-12">
-                    <div class="card">
+                    <div class="card card-custom">
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
@@ -254,7 +254,7 @@
                 </div>
 
                 <div class="col-lg-6 col-md-12">
-                    <div class="card">
+                    <div class="card card-custom">
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
@@ -312,7 +312,7 @@
 
             <div class="row mb-4">
                 <div class="col-lg-6 col-md-12">
-                    <div class="card">
+                    <div class="card card-custom">
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
@@ -367,7 +367,7 @@
                 </div>
 
                 <div class="col-lg-6 col-md-12">
-                    <div class="card">
+                    <div class="card card-custom">
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
@@ -505,7 +505,11 @@
 @section('plugins.DatatablesPlugin', true)
 
 @section('css')
-    
+    <style>
+        .card-custom:not(.card-outline) .card-header {
+            background-color: #EEEEEE;
+        }
+    </style>
 @stop
 
 @section('js')
