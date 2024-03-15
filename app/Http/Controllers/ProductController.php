@@ -51,8 +51,8 @@ class ProductController extends Controller
                         $web->go($request->input('competitor-'.$value->id));
                         $string = $web->filter($value->filtro)->text();
                         $string = Str::remove('€', $string);
-                        $number = Str::replace(',', '.', $string);
                         $number = Str::replace('.', '', $string);
+                        $number = Str::replace(',', '.', $string);
                     } catch (\Throwable $th) {
                         $string = null;
                     }
