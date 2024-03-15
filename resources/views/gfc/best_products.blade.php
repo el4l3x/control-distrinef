@@ -471,7 +471,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="superventasTable" :heads="$heads" :config="$config" head-theme="light" theme="primary" beautify striped hoverable with-buttons>
+                            <x-adminlte-datatable id="superventasTable" :heads="$heads" :config="$config" beautify striped hoverable with-buttons>
                             </x-adminlte-datatable>
                         </div>
                     </div>    
