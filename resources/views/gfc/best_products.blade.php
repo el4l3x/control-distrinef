@@ -45,7 +45,7 @@
                                 ['label' => 'Ref'],
                                 'Nombre',
                                 ['label' => 'Pedidos'],
-                                ['label' => 'N°'],
+                                ['label' => 'Unidades'],
                             ];
 
                             $config = [                                
@@ -77,7 +77,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="productosTable" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                            <x-adminlte-datatable id="productosTable" :heads="$heads" :config="$config" beautify striped hoverable with-buttons>
                             </x-adminlte-datatable>
                         </div>
                     </div>    
@@ -101,7 +101,7 @@
                                 ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'N°',
+                                'Unidades',
                             ];
 
                             $config = [                                
@@ -133,7 +133,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="bests-aires" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                            <x-adminlte-datatable id="bests-aires" :heads="$heads" :config="$config" beautify striped hoverable with-buttons>
                             </x-adminlte-datatable>
 
                         </div>
@@ -156,7 +156,7 @@
                                 ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'N°',
+                                'Unidades',
                             ];
 
                             $config = [                                
@@ -189,7 +189,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="bests-calderas" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                            <x-adminlte-datatable id="bests-calderas" :heads="$heads" :config="$config" beautify striped hoverable with-buttons>
                             </x-adminlte-datatable>
 
                         </div>
@@ -214,7 +214,7 @@
                                 ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'N°',
+                                'Unidades',
                             ];
 
                             $config = [                                
@@ -246,7 +246,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="bests-aerotermia" :heads="$heads" :config="$config" striped hoverable with-buttons>                                
+                            <x-adminlte-datatable id="bests-aerotermia" :heads="$heads" :config="$config" beautify striped hoverable with-buttons>                                
                             </x-adminlte-datatable>
 
                         </div>
@@ -269,7 +269,7 @@
                                 ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'N°',
+                                'Unidades',
                             ];
 
                             $config = [                                
@@ -302,7 +302,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="bests-ventilacion" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                            <x-adminlte-datatable id="bests-ventilacion" :heads="$heads" :config="$config" beautify striped hoverable with-buttons>
                             </x-adminlte-datatable>
 
                         </div>
@@ -327,7 +327,7 @@
                                 ['label' => 'Ref', 'width' => 1],
                                 ['label' => 'Nombre'],
                                 ['label' => 'Pedidos', 'width' => 1],
-                                ['label' => 'N°'],
+                                ['label' => 'Unidades'],
                             ];
 
                             $config = [                                
@@ -359,7 +359,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="bests-caletadores-gas" :heads="$heads" :config="$config" striped hoverable with-buttons>                                
+                            <x-adminlte-datatable id="bests-caletadores-gas" :heads="$heads" :config="$config" beautify striped hoverable with-buttons>                                
                             </x-adminlte-datatable>
 
                         </div>
@@ -382,7 +382,7 @@
                                 ['label' => 'Ref', 'width' => 1],
                                 'Nombre',
                                 'Pedidos',
-                                'N°',
+                                'Unidades',
                             ];
 
                             $config = [                                
@@ -415,7 +415,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="bests-termos-electricos" :heads="$heads" :config="$config" striped hoverable with-buttons>
+                            <x-adminlte-datatable id="bests-termos-electricos" :heads="$heads" :config="$config" beautify striped hoverable with-buttons>
                             </x-adminlte-datatable>
 
                         </div>
@@ -423,6 +423,79 @@
                 </div>
             </div>
 
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card border-primary card-primary">
+                        
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="card-title">Superventas Mas Vendidos</h2>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            @php
+                            $heads = [
+                                ['label' => 'Ref'],
+                                'Nombre',
+                                ['label' => 'Pedidos'],
+                                ['label' => 'Unidades'],
+                            ];
+
+                            $config = [                                
+                                'ajax'  => [
+                                    'url'   => route('gfc.datatable.bestsuperventas'),
+                                    'data'  =>   [
+                                        'start' => $startDateFormat->format("Y-m-d"),
+                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                    ]
+                                ],
+                                'order' => [[3, 'desc']],
+                                'columns' => [
+                                    [
+                                        'data'  => "SKU",
+                                        'width' => '10px'
+                                    ], 
+                                    [
+                                        'data'  => "Product_Name_Combination",
+                                    ], 
+                                    [
+                                        'data'  => "ordered_qty",
+                                    ], 
+                                    [
+                                        'data'  => "total_products",
+                                    ]
+                                ],
+                                'language'  => [
+                                    'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                                ],
+                            ];
+                            @endphp
+                            <x-adminlte-datatable id="superventasTable" :heads="$heads" :config="$config" head-theme="light" theme="primary" beautify striped hoverable with-buttons>
+                            </x-adminlte-datatable>
+                        </div>
+                    </div>    
+                </div>    
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPedidos" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pedidos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 @stop
@@ -484,6 +557,18 @@
                 $("input#end").val(end);
                 $('form#frmDateRange').submit();
             });
+
+            $('#modalPedidos').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var ids = button.data('ids')
+                var nombre = button.data('nombre')
+                var modal = $(this)
+                modal.find('.modal-body p').empty()
+                modal.find('.modal-body p').append(ids)
+                modal.find('.modal-title').empty()
+                modal.find('.modal-title').text('Pedidos de ' + nombre)
+            });
+            
         });
 
     </script>
