@@ -566,7 +566,7 @@
                 modal.find('.modal-body p').empty()
                 modal.find('.modal-body p').append(ids)
                 modal.find('.modal-title').empty()
-                modal.find('.modal-title').text('Pedidos de ' + nombre)
+                modal.find('.modal-title').text('Pedidos que incluyen ' + nombre)
             });
             
         });
