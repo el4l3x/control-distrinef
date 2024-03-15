@@ -934,6 +934,13 @@ class GfcController extends Controller
                     'url' => 'https://www.gasfriocalor.com/'.$product->url_name,
                     'nombre'    => $product->Product_Name,
                 ]);
+            })
+            ->editColumn('ordered_qty', function ($product) {
+                return view('gfc.products.datatables.pedidos', [
+                    'pedidos_count' => $product->ordered_qty,
+                    'pedidos_ids'    => $product->orders_ids,
+                    'nombre'    => $product->Product_Name,
+                ]);
             });                 
 
         return $dt->toJson();
