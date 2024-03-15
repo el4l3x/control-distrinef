@@ -429,7 +429,7 @@
                         
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Superventas Mas Vendidos</h2>
+                                <h2 class="card-title">Superventas Mas Vendidos ({{ $superventasMasVendidos }})</h2>
                             </div>
                         </div>
 
