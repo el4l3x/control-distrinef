@@ -42,11 +42,17 @@ class GfcController extends Controller
         ]);
  
         if ($validator->fails()) {
-            $start = Carbon::yesterday();
-            $end = Carbon::now();
+            /* $start = Carbon::yesterday();
+            $end = Carbon::now(); */
+
+            $start = $request->session()->get('startBestsProducts', Carbon::yesterday());
+            $end = $request->session()->get('endBestsProducts', Carbon::now());
         } else {
             $start = $request->date('start'); 
             $end = $request->date('end');
+
+            $request->session()->put('startBestsProducts', $start);
+            $request->session()->put('endBestsProducts', $end);
         }
 
         $subcategoriesAires = DB::connection('presta')->table('category')
