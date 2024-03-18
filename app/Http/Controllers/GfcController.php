@@ -92,13 +92,18 @@ class GfcController extends Controller
         })        
         ->select(
             'product.id_product',
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
         )
         ->where('orders.valid', 1)
         ->whereBetween('orders.date_add', [$start, $end])
         ->whereIn('product.id_category_default', $arrayCategoriesAiresThree)
         ->groupBy('product.id_product')
-        ->get()
-        ->count();
+        ->get();
+
+        $totalUnidadesAires = 0;
+        for ($i=0; $i < $aires->count(); $i++) { 
+            $totalUnidadesAires += $aires[$i]->total_products;
+        }
 
         $subcategoriesCalderas = DB::connection('presta')->table('category')
             ->select('id_category')
@@ -138,15 +143,20 @@ class GfcController extends Controller
             $joinClause->on('orders.id_order', '=', 'order_detail.id_order');                
         })        
         ->select(
-            'product.id_product',            
+            'product.id_product',
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
         )
         ->where('orders.valid', 1)
         ->whereBetween('orders.date_add', [$start, $end])
         ->whereIn('product.id_category_default', $arrayCategoriesCalderasThree)
         ->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')
-        ->get()
-        ->count();
+        ->get();
+
+        $totalUnidadesCalderas = 0;
+        for ($i=0; $i < $calderas->count(); $i++) { 
+            $totalUnidadesCalderas += $calderas[$i]->total_products;
+        }
 
         $subcategoriesAerotermia = DB::connection('presta')->table('category')
             ->select('id_category')
@@ -178,14 +188,19 @@ class GfcController extends Controller
         })        
         ->select(
             'product.id_product',
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
         )
         ->where('orders.valid', 1)
         ->whereBetween('orders.date_add', [$start, $end])
         ->whereIn('product.id_category_default', $arrayCategoriesAerotermiaTwo)
         ->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')
-        ->get()
-        ->count();
+        ->get();
+
+        $totalUnidadesAerotermia = 0;
+        for ($i=0; $i < $aerotermia->count(); $i++) { 
+            $totalUnidadesAerotermia += $aerotermia[$i]->total_products;
+        }
 
         $subcategoriesVentilacion = DB::connection('presta')->table('category')
             ->select('id_category')
@@ -217,14 +232,19 @@ class GfcController extends Controller
         })        
         ->select(
             'product.id_product',
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
         )
         ->where('orders.valid', 1)
         ->whereBetween('orders.date_add', [$start, $end])
         ->whereIn('product.id_category_default', $arrayCategoriesVentilacionTwo)
         ->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')
-        ->get()
-        ->count();
+        ->get();
+
+        $totalUnidadesVentilacion = 0;
+        for ($i=0; $i < $ventilacion->count(); $i++) { 
+            $totalUnidadesVentilacion += $ventilacion[$i]->total_products;
+        }
 
         $subcategoriesCalentadoresGas = DB::connection('presta')->table('category')
             ->select('id_category')
@@ -247,14 +267,19 @@ class GfcController extends Controller
         })        
         ->select(
             'product.id_product',
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
         )
         ->where('orders.valid', 1)
         ->whereBetween('orders.date_add', [$start, $end])
         ->whereIn('product.id_category_default', $arrayCategoriesCalentadoresGas)
         ->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')
-        ->get()
-        ->count();
+        ->get();
+
+        $totalUnidadesCalentadoresGas = 0;
+        for ($i=0; $i < $calentadoresGas->count(); $i++) { 
+            $totalUnidadesCalentadoresGas += $calentadoresGas[$i]->total_products;
+        }
 
         $subcategoriesTermosElectricos = DB::connection('presta')->table('category')
             ->select('id_category')
@@ -286,26 +311,24 @@ class GfcController extends Controller
         })        
         ->select(
             'product.id_product',
+            DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
         )
         ->where('orders.valid', 1)
         ->whereBetween('orders.date_add', [$start, $end])
         ->whereIn('product.id_category_default', $arrayCategoriesTermosElectricosTwo)
         ->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')
-        ->get()
-        ->count();
+        ->get();
+
+        $totalUnidadesTermosElectricos = 0;
+        for ($i=0; $i < $termosElectricos->count(); $i++) { 
+            $totalUnidadesTermosElectricos += $termosElectricos[$i]->total_products;
+        }
 
         $superventas = DB::connection('presta')->table('product')
         ->select(
             'product.id_product',
-            'product.reference as SKU',
-            'order_detail.product_reference',
-            'order_detail.product_name as Product_Name_Combination',
-            'product_lang.name as Product_Name',
-            'product_lang.link_rewrite as url_name',
-            DB::raw("count(gfc_order_detail.id_order) as ordered_qty"),
             DB::raw('SUM(gfc_order_detail.product_quantity) as total_products'),
-            DB::raw('GROUP_CONCAT(DISTINCT gfc_orders.id_order ORDER BY gfc_orders.id_order  SEPARATOR", ") as orders_ids'),
         )
         ->join('product_lang', function (JoinClause $joinClause) {
             $joinClause->on('product.id_product', '=', 'product_lang.id_product');
@@ -322,17 +345,28 @@ class GfcController extends Controller
         ->where('category_product.id_category', 2227)
         ->groupBy('product.id_product')
         ->orderBy('total_products', 'DESC')
-        ->get()
-        ->count();
+        ->get();
+
+        $totalUnidadesSuperventas = 0;
+        for ($i=0; $i < $superventas->count(); $i++) { 
+            $totalUnidadesSuperventas += $superventas[$i]->total_products;
+        }
 
         return view("gfc.best_products", [
-            "airesMasVendidos"  =>  $aires,
-            "calderasMasVendidos"  =>  $calderas,
-            "aerotermiaMasVendidos"  =>  $aerotermia,
-            "ventilacionMasVendidos"  =>  $ventilacion,
-            "calentadoresGasMasVendidos"  =>  $calentadoresGas,
-            "termosElectricosMasVendidos"  =>  $termosElectricos,
-            "superventasMasVendidos"  =>  $superventas,
+            "airesMasVendidos"  =>  $aires->count(),
+            "totalUnidadesAires"    => $totalUnidadesAires,
+            "calderasMasVendidos"  =>  $calderas->count(),
+            "totalUnidadesCalderas"    => $totalUnidadesCalderas,
+            "aerotermiaMasVendidos"  =>  $aerotermia->count(),
+            "totalUnidadesAerotermia"    => $totalUnidadesAerotermia,
+            "ventilacionMasVendidos"  =>  $ventilacion->count(),
+            "totalUnidadesVentilacion"    => $totalUnidadesVentilacion,
+            "calentadoresGasMasVendidos"  =>  $calentadoresGas->count(),
+            "totalUnidadesCalentadoresGas"    => $totalUnidadesCalentadoresGas,
+            "termosElectricosMasVendidos"  =>  $termosElectricos->count(),
+            "totalUnidadesTermosElectricos"    => $totalUnidadesTermosElectricos,
+            "superventasMasVendidos"  =>  $superventas->count(),
+            "totalUnidadesSuperventas"    => $totalUnidadesSuperventas,
             "startDate" => $start->format('d/m/Y'),
             "endDate" => $end->format('d/m/Y'),
             "startDateFormat" => $start,
