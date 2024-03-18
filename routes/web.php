@@ -60,10 +60,10 @@ Route::middleware([
     Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('gfc.products.delete');
 
     Route::get('gasfriocalor/cambio-precios', [PrivadoController::class, 'cambioPrecios'])->name('gfc.privado.cambio-precios');
-    Route::get('gasfriocalor/cambio-precios', [PrivadoController::class, 'desbloquearPedidos'])->name('gfc.privado.desbloquear-pedidos');
-    Route::get('gasfriocalor/cambio-precios', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels');
-    Route::get('gasfriocalor/cambio-precios', [PrivadoController::class, 'uploadDtocompra'])->name('gfc.privado.upload_dtocompra');
-    Route::get('gasfriocalor/cambio-precios', [PrivadoController::class, 'consultaStockNetosEditor'])->name('gfc.privado.consulta_stock-netos_editor');
+    Route::get('gasfriocalor/desbloquear-pedidos', [PrivadoController::class, 'desbloquearPedidos'])->name('gfc.privado.desbloquear-pedidos');
+    Route::get('gasfriocalor/descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels');
+    Route::get('gasfriocalor/upload-dtocompra', [PrivadoController::class, 'uploadDtocompra'])->name('gfc.privado.upload_dtocompra');
+    Route::get('gasfriocalor/consulta-stock', [PrivadoController::class, 'consultaStockNetosEditor'])->name('gfc.privado.consulta_stock-netos_editor');
 });
 });
 
