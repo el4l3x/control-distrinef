@@ -335,6 +335,33 @@ return [
             'route'  => 'gfc.monprice',
             'active' => ['gasfriocalor/monitor-precios'],
         ],
+        [
+            'text' => 'Modificar Precios en Masa',
+            /* 'route'  => 'gfc.privado.cambio-precios', */
+            'url'   => 'https://www.gasfriocalor.com/privado/cambio-precios.php',
+            'target' => '_blank',
+            /* 'active' => ['gasfriocalor/cambio-precios'], */
+        ],
+        [
+            'text' => 'Desbloquear Pedidos',
+            'url'   => 'https://www.gasfriocalor.com/privado/desbloquear-pedidos.php',
+            'target' => '_blank',
+        ],
+        [
+            'text' => 'Descargar Informes en Excel',
+            'url'   => 'https://www.gasfriocalor.com/privado/descargar-excels.php',
+            'target' => '_blank',
+        ],
+        [
+            'text' => "Subir Dto's de Compra con CSV",
+            'url'   => 'https://www.gasfriocalor.com/privado/upload_dtocompra.php',
+            'target' => '_blank',
+        ],
+        [
+            'text' => 'Consultar Stocks y/o Precios Netos',
+            'url'   => 'https://www.gasfriocalor.com/privado/consulta_stock-netos_editor.php',
+            'target' => '_blank',
+        ],
 
         /* [
             'type' => 'sidebar-menu-search',
