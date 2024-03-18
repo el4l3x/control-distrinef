@@ -458,7 +458,7 @@ class GfcController extends Controller
         })->select(
             'product.id_product',
             'product.reference as SKU',
-            'order_detai<<<<<<<<<<<<<<<<<l.product_reference',
+            'order_detail.product_reference',
             'order_detail.product_name as Product_Name_Combination',
             'product_lang.name as Product_Name',
             'product_lang.link_rewrite as url_name',

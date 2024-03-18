@@ -90,7 +90,7 @@
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Aires acondicionados Mas Vendidos ({{ $airesMasVendidos }}) - {{ $totalUnidadesAires }} unidades totales</h2>
+                                <h2 class="card-title">Aires acondicionados Mas Vendidos ({{ $airesMasVendidos }} diferentes) - {{ $totalUnidadesAires }} unidades totales</h2>
                             </div>
                         </div>
 
@@ -145,7 +145,7 @@
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Calderas Mas Vendidas ({{ $calderasMasVendidos }}) - {{ $totalUnidadesCalderas }} unidades totales</h2>
+                                <h2 class="card-title">Calderas Mas Vendidas ({{ $calderasMasVendidos }} diferentes) - {{ $totalUnidadesCalderas }} unidades totales</h2>
                             </div>
                         </div>
 
@@ -203,7 +203,7 @@
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Aerotermia Mas Vendida ({{ $aerotermiaMasVendidos }}) - {{ $totalUnidadesAerotermia }} unidades totales</h2>
+                                <h2 class="card-title">Aerotermia Mas Vendida ({{ $aerotermiaMasVendidos }} diferentes) - {{ $totalUnidadesAerotermia }} unidades totales</h2>
                             </div>
                         </div>
 
@@ -258,7 +258,7 @@
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Ventilación Mas Vendidas ({{ $ventilacionMasVendidos }}) - {{ $totalUnidadesVentilacion }} unidades totales</h2>
+                                <h2 class="card-title">Ventilación Mas Vendidas ({{ $ventilacionMasVendidos }} diferentes) - {{ $totalUnidadesVentilacion }} unidades totales</h2>
                             </div>
                         </div>
 
@@ -316,7 +316,7 @@
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Caletadores a Gas Mas Vendidos ({{ $calentadoresGasMasVendidos }}) - {{ $totalUnidadesCalentadoresGas }} unidades totales</h2>
+                                <h2 class="card-title">Caletadores a Gas Mas Vendidos ({{ $calentadoresGasMasVendidos }} diferentes) - {{ $totalUnidadesCalentadoresGas }} unidades totales</h2>
                             </div>
                         </div>
 
@@ -371,7 +371,7 @@
                         
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Termos Electricos Mas Vendidos ({{ $termosElectricosMasVendidos }}) - {{ $totalUnidadesTermosElectricos }} unidades totales</h2>
+                                <h2 class="card-title">Termos Electricos Mas Vendidos ({{ $termosElectricosMasVendidos }} diferentes) - {{ $totalUnidadesTermosElectricos }} unidades totales</h2>
                             </div>
                         </div>
 
@@ -429,7 +429,7 @@
                         
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h2 class="card-title">Superventas Mas Vendidos ({{ $superventasMasVendidos }}) - {{ $totalUnidadesSuperventas }} unidades totales</h2>
+                                <h2 class="card-title">Superventas Mas Vendidos ({{ $superventasMasVendidos }} diferentes) - {{ $totalUnidadesSuperventas }} unidades totales</h2>
                             </div>
                         </div>
 
