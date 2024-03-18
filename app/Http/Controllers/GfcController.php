@@ -382,12 +382,14 @@ class GfcController extends Controller
         });
 
         $arrayHeads->prepend('Producto');
+        $arrayHeads->push('Opciones');
 
         $arrayColumns = $competitors->map(function($item){
             return ['data'  => $item->nombre, 'orderable' => false];
         });
 
         $arrayColumns->prepend(['data'  => 'nombre']);
+        $arrayColumns->push(['data'  => 'opciones', 'orderable' => false]);
 
         return view("gfc.mon_price", [
             'arrayHeads'=> $arrayHeads,
@@ -417,7 +419,14 @@ class GfcController extends Controller
                     'competitor'    => $competitor,
                 ]);
             });
-        }        
+        }
+
+        $dt->addColumn('opciones', function ($product) {
+                return view('gfc.products.datatables.buttons', [
+                    'nombre'    => $product->nombre,
+                    'id'    => $product->id,
+                ]);
+            });
 
         return $dt->toJson();
     }
@@ -449,7 +458,7 @@ class GfcController extends Controller
         })->select(
             'product.id_product',
             'product.reference as SKU',
-            'order_detail.product_reference',
+            'order_detai<<<<<<<<<<<<<<<<<l.product_reference',
             'order_detail.product_name as Product_Name_Combination',
             'product_lang.name as Product_Name',
             'product_lang.link_rewrite as url_name',

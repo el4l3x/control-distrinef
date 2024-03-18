@@ -43,7 +43,7 @@
                                 ],
                             ];
                             @endphp
-                            <x-adminlte-datatable id="price-monitor" :heads="$arrayHeads" :config="$config" striped hoverable with-buttons>
+                            <x-adminlte-datatable id="price-monitor" :heads="$arrayHeads" :config="$config" beautify striped hoverable with-buttons>
                                 
                             </x-adminlte-datatable>
                         </div>
@@ -52,8 +52,57 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalBorrar" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pedidos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <form action="" method="post" id="frmDelete">
+                <div class="modal-body">
+                    <p></p>
+                        @method('delete')
+                        @csrf
+                        <input type="hidden" name="id" id="idDel">
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="success" class="btn btn-primary">Continuar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 @stop
 
 @section('plugins.DateRangePicker', true)
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugin', true)
+
+@section('js')
+    <script>
+        $(() => {
+
+            $('#modalBorrar').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var id = button.data('id')
+                var nombre = button.data('nombre')
+                var modal = $(this)
+
+                console.log(nombre);
+                modal.find('.modal-body p').empty()
+                modal.find('.modal-body p').append('Esta seguro de dar de baja al producto ' + nombre + '?')
+                modal.find('.modal-title').empty()
+                modal.find('.modal-title').text('Borrar ' + nombre)
+                modal.find('#idDel').val(id)
+
+                $("#frmDelete").attr('action', 'product/'+id)
+            });
+            
+        });
+
+    </script>
+@stop

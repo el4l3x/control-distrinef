@@ -56,6 +56,7 @@ Route::middleware([
 
     Route::get('producto/nuevo', [ProductController::class, 'create'])->name('gfc.products.create');
     Route::post('producto/nuevo', [ProductController::class, 'store'])->name('gfc.products.store');
+    Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('gfc.products.delete');
 });
 });
 

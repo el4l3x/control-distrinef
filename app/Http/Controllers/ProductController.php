@@ -109,6 +109,17 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            $product->delete();
+
+            DB::commit();
+
+            return redirect()->route('gfc.monprice');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 }
