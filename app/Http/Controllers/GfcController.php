@@ -42,9 +42,6 @@ class GfcController extends Controller
         ]);
  
         if ($validator->fails()) {
-            /* $start = Carbon::yesterday();
-            $end = Carbon::now(); */
-
             $start = $request->session()->get('startBestsProducts', Carbon::yesterday());
             $end = $request->session()->get('endBestsProducts', Carbon::now());
         } else {
@@ -400,10 +397,10 @@ class GfcController extends Controller
  
         if ($validator->fails()) {
             $start = Carbon::yesterday();
-            $end = Carbon::now();
+            $end = Carbon::now()->addHours(23)->addMinutes(59)->addSeconds(59);
         } else {
             $start = $request->date('start'); 
-            $end = $request->date('end');
+            $end = $request->date('end')->addHours(23)->addMinutes(59)->addSeconds(59);
         }
 
         $select = DB::connection('presta')->table('product')
@@ -447,10 +444,10 @@ class GfcController extends Controller
  
         if ($validator->fails()) {
             $start = Carbon::yesterday();
-            $end = Carbon::now();
+            $end = Carbon::now()->addHours(23)->addMinutes(59)->addSeconds(59);
         } else {
             $start = $request->date('start'); 
-            $end = $request->date('end');
+            $end = $request->date('end')->addHours(23)->addMinutes(59)->addSeconds(59);
         }
 
         $subcategoriesAires = DB::connection('presta')->table('category')
@@ -535,10 +532,10 @@ class GfcController extends Controller
  
         if ($validator->fails()) {
             $start = Carbon::yesterday();
-            $end = Carbon::now();
+            $end = Carbon::now()->addHours(23)->addMinutes(59)->addSeconds(59);
         } else {
             $start = $request->date('start'); 
-            $end = $request->date('end');
+            $end = $request->date('end')->addHours(23)->addMinutes(59)->addSeconds(59);
         }
 
         $subcategoriesCalderas = DB::connection('presta')->table('category')
@@ -622,10 +619,10 @@ class GfcController extends Controller
  
         if ($validator->fails()) {
             $start = Carbon::yesterday();
-            $end = Carbon::now();
+            $end = Carbon::now()->addHours(23)->addMinutes(59)->addSeconds(59);
         } else {
             $start = $request->date('start'); 
-            $end = $request->date('end');
+            $end = $request->date('end')->addHours(23)->addMinutes(59)->addSeconds(59);
         }
 
         $subcategoriesAerotermia = DB::connection('presta')->table('category')
@@ -700,10 +697,10 @@ class GfcController extends Controller
  
         if ($validator->fails()) {
             $start = Carbon::yesterday();
-            $end = Carbon::now();
+            $end = Carbon::now()->addHours(23)->addMinutes(59)->addSeconds(59);
         } else {
             $start = $request->date('start'); 
-            $end = $request->date('end');
+            $end = $request->date('end')->addHours(23)->addMinutes(59)->addSeconds(59);
         }
 
         $subcategoriesVentilacion = DB::connection('presta')->table('category')
@@ -778,10 +775,10 @@ class GfcController extends Controller
  
         if ($validator->fails()) {
             $start = Carbon::yesterday();
-            $end = Carbon::now();
+            $end = Carbon::now()->addHours(23)->addMinutes(59)->addSeconds(59);
         } else {
             $start = $request->date('start'); 
-            $end = $request->date('end');
+            $end = $request->date('end')->addHours(23)->addMinutes(59)->addSeconds(59);
         }
 
         $subcategoriesCalentadoresGas = DB::connection('presta')->table('category')
@@ -847,10 +844,10 @@ class GfcController extends Controller
  
         if ($validator->fails()) {
             $start = Carbon::yesterday();
-            $end = Carbon::now();
+            $end = Carbon::now()->addHours(23)->addMinutes(59)->addSeconds(59);
         } else {
             $start = $request->date('start'); 
-            $end = $request->date('end');
+            $end = $request->date('end')->addHours(23)->addMinutes(59)->addSeconds(59);
         }
 
         $subcategoriesTermosElectricos = DB::connection('presta')->table('category')
@@ -925,10 +922,10 @@ class GfcController extends Controller
  
         if ($validator->fails()) {
             $start = Carbon::yesterday();
-            $end = Carbon::now();
+            $end = Carbon::now()->addHours(23)->addMinutes(59)->addSeconds(59);
         } else {
             $start = $request->date('start'); 
-            $end = $request->date('end');
+            $end = $request->date('end')->addHours(23)->addMinutes(59)->addSeconds(59);
         }
 
         $superventas = DB::connection('presta')->table('product')
