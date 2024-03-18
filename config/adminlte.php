@@ -337,8 +337,8 @@ return [
         ],
         [
             'text' => 'Modificar Precios en Masa',
-            /* 'route'  => 'gfc.privado.cambio-precios', */
-            'url'   => 'https://www.gasfriocalor.com/privado/cambio-precios.php',
+            'route'  => 'gfc.privado.cambio-precios',
+            /* 'url'   => 'https://www.gasfriocalor.com/privado/cambio-precios.php', */
             'target' => '_blank',
             /* 'active' => ['gasfriocalor/cambio-precios'], */
         ],

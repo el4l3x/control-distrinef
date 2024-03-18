@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompetitorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GfcController;
+use App\Http\Controllers\PrivadoController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
@@ -57,6 +58,8 @@ Route::middleware([
     Route::get('producto/nuevo', [ProductController::class, 'create'])->name('gfc.products.create');
     Route::post('producto/nuevo', [ProductController::class, 'store'])->name('gfc.products.store');
     Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('gfc.products.delete');
+
+    Route::get('gasfriocalor/cambio-precios', [PrivadoController::class, 'cambioPrecios'])->name('gfc.privado.cambio-precios');
 });
 });
 
