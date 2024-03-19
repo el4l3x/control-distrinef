@@ -8,8 +8,11 @@
     @if (Str::lower($competitor->nombre) != 'gasfriocalor')
         <span @class([
             'badge',
-            'badge-success' => $percent > 0,
-            'badge-danger' => $percent < 0,
+            'badge-danger' => $percent < -2,
+            'bg-orange' => $percent > -2 && $percent < 0,
+            'badge-warning' => $percent < 2 && $percent > 0,
+            'badge-success' => $percent > 2 && $percent < 20,
+            'badge-primary' => $percent > 20,
         ])>
             {{ $percent }}%
         </span>
