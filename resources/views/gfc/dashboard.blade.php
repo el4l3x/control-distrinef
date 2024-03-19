@@ -238,15 +238,8 @@
       });
     </script>
 
-    
+    <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
-
-    {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    
-    <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    
-    
-    <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script> --}}
     
 @stop
