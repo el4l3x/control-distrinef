@@ -23,13 +23,17 @@ class GfcController extends Controller
         if ($validator->fails()) {
             $start = $request->session()->get('startDashboard', Carbon::yesterday());
             $end = $request->session()->get('endDashboard', Carbon::now());
+			
+			//return $start;
         } else {
-            $start = $request->date('start'); 
-            $end = $request->date('end');
+            $start = $request->date('start')->subHours(4); 
+            $end = $request->date('end')->subHours(4);
 
             $request->session()->put('startDashboard', $start);
             $request->session()->put('endDashboard', $end);
-        }
+			
+			//return $start;
+        }		
 
         /* Pedidos Entrados */
         $pedidosEntrados = DB::connection('presta')->table('orders')
@@ -92,12 +96,14 @@ class GfcController extends Controller
             $start = $request->session()->get('startBestsProducts', Carbon::yesterday());
             $end = $request->session()->get('endBestsProducts', Carbon::now());
         } else {
-            $start = $request->date('start'); 
-            $end = $request->date('end');
+            $start = $request->date('start')->subHours(4); 
+            $end = $request->date('end')->subHours(4);
 
             $request->session()->put('startBestsProducts', $start);
             $request->session()->put('endBestsProducts', $end);
         }
+		
+		//return $start;
 
         $subcategoriesAires = DB::connection('presta')->table('category')
             ->select('id_category')
