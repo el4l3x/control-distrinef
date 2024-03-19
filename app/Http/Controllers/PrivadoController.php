@@ -16,7 +16,7 @@ class PrivadoController extends Controller
     }
     
     public function descargarExcels(Request $request) {
-        return view('gfc.privado.cambio-precios', compact('request'));
+        return view('gfc.privado.descargar-excels', compact('request'));
         /* include(app_path() . '/privado/descargar-excels.php'); */
     }
     
