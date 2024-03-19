@@ -37,10 +37,13 @@ Route::middleware([
     });
     /* Route::post('/gasfriocalor', [DashboardController::class, 'dashboard'])->name('dashboard.dates'); */
 
-    Route::prefix('gasfriocalor')->group(function () {
+Route::prefix('gasfriocalor')->group(function () {
     Route::get('/dashboard', [GfcController::class, 'dashboard'])->name('gfc.dashboard');
+    Route::post('/dashboard/rango-fechas', [GfcController::class, 'dashboard'])->name('gfc.dashboards.dates');
+
     Route::get('/mejores-productos', [GfcController::class, 'bestProducts'])->name('gfc.bestproducts');
     Route::post('/mejores-productos/rango-fechas', [GfcController::class, 'bestProducts'])->name('gfc.bestproducts.dates');
+
     Route::get('/monitor-precios', [GfcController::class, 'monPrice'])->name('gfc.monprice');
 
     Route::get('datatable/monitor-precios', [GfcController::class, 'datatable'])->name('gfc.datatable.monprice');

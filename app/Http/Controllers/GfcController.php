@@ -14,7 +14,46 @@ use Yajra\DataTables\Facades\DataTables;
 
 class GfcController extends Controller
 {
-    public function dashboard() {
+    public function dashboard(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'start' => 'required|date',
+            'end' => 'required|date',
+        ]);
+ 
+        if ($validator->fails()) {
+            $start = $request->session()->get('startDashboard', Carbon::yesterday());
+            $end = $request->session()->get('endDashboard', Carbon::now());
+        } else {
+            $start = $request->date('start'); 
+            $end = $request->date('end');
+
+            $request->session()->put('startDashboard', $start);
+            $request->session()->put('endDashboard', $end);
+        }
+
+        /* Pedidos Entrados */
+        $pedidosEntrados = DB::connection('presta')->table('orders')
+            ->where('orders.valid', 1)
+            ->whereBetween('orders.date_add', [$start, $end])
+            ->count();
+            
+        /* Importe Facturado */
+        $importeFacturado = DB::connection('presta')->table('orders')
+            ->where('orders.valid', 1)
+            ->whereBetween('orders.date_add', [$start, $end])
+            ->sum('orders.total_paid_tax_incl');
+            
+        /* Carritos Totales */
+        $carritosTotales = DB::connection('presta')->table('cart')
+            ->whereBetween('cart.date_add', [$start, $end])
+            ->count();
+            
+        /* Carritos Clientes */
+        $carritosClientes = DB::connection('presta')->table('cart')
+            ->where('id_customer', '!=', 0)
+            ->whereBetween('cart.date_add', [$start, $end])
+            ->count();
+
         /* Productos Activos */
         $productsAct = DB::connection('presta')->table('product')->where('active', 1)->count();
         /* Productos Desactivados */
@@ -32,6 +71,14 @@ class GfcController extends Controller
             "productsAct"   => $productsAct,
             "productsDes"   => $productsDes,
             "productsUpd"   => $productsUpd,
+            "pedidosEntrados"   => $pedidosEntrados,
+            "carritosTotales"   => $carritosTotales,
+            "carritosClientes"   => $carritosClientes,
+            "importeFacturado"   => number_format($importeFacturado, 2, ",", ".")." €",
+            "startDate" => $start->format('d/m/Y'),
+            "endDate" => $end->format('d/m/Y'),
+            "startDateFormat" => $start,
+            "endDateFormat" => $end,
         ]);
     }
 

@@ -3,14 +3,52 @@
 @section('title', 'Gasfriocalor | Dashboard')
 
 @section('content_header')
-    <div class="row">
-        <div class="col-sm-6 col-lg-9">
-            <h1>Gasfriocalor.com</h1>
+  <div class="row justify-content-between">
+    <h1>Gasfriocalor.com</h1>
+
+    <form action="{{ route('gfc.dashboards.dates') }}" method="post" id="frmDateRange" class="form-inline">
+      @csrf
+      <input type="hidden" id="start" name="start">
+      <input type="hidden" id="end" name="end">
+      <div class="form-group">
+        <label for="range-date" style="margin-right: 5px">Desde - Hasta</label>
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-dark">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+          </div>
+          <input id="range-date" class="form-control" name="range-date">
         </div>
-    </div>    
+      </div>
+    </form>
+
+  </div>
 @stop
 
 @section('content')
+    <div class="row">
+        <div class="col-md-3">
+            {{-- Pedidos Entrados --}}
+            <x-adminlte-small-box title="{{ $pedidosEntrados }}" text="Pedidos Entrados" icon="far fa-chart-bar" theme="info" url="#" url-text="Mas Información"/>
+        </div>
+        
+        <div class="col-md-3">
+            {{-- Importe Facturado --}}
+            <x-adminlte-small-box title="{{ $importeFacturado }}" text="Importe Facturado" icon="far fa-chart-bar" theme="warning" url="#" url-text="Mas Información"/>
+        </div>
+
+        <div class="col-md-3">
+            {{-- Carritos Totales --}}
+            <x-adminlte-small-box title="{{ $carritosTotales }}" text="Carritos Totales" icon="fas fa-shopping-cart" theme="success" url="#" url-text="Mas Información"/>
+        </div>
+
+        <div class="col-md-3">
+            {{-- Carritos Clientes --}}            
+            <x-adminlte-small-box title="{{ $carritosClientes }}" text="Carritos Clientes" icon="fas fa-shopping-cart" theme="indigo" url="#" url-text="Mas Información"/>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-3">
             {{-- Productos Activos Hoy --}}
@@ -142,19 +180,68 @@
     </div>
 @stop
 
+@section('plugins.DateRangePicker', true)
+
 @section('css')
     
 @stop
 
 @section('js')
+    <script>
+      $(() => {
+        const defaultRanges = {
+            'Hoy': [
+                moment().startOf('day'),
+                moment().endOf('day')
+            ],
+            'Ayer': [
+                moment().subtract(1, 'days').startOf('day'),
+                moment().subtract(1, 'days').endOf('day')
+            ],
+            'Ultimos 7 Dias': [
+                moment().subtract(6, 'days'),
+                moment()
+            ],
+            'Ultimos 30 Dias': [
+                moment().subtract(29, 'days'),
+                moment()
+            ],
+            'Este Mes': [
+                moment().startOf('month'),
+                moment().endOf('month')
+            ],
+            'Ultimo Mes': [
+                moment().subtract(1, 'month').startOf('month'),
+                moment().subtract(1, 'month').endOf('month')
+            ],
+        }
+
+        const startDate = @json($startDate);
+        const endDate = @json($endDate);
+
+        moment.locale('es');
+
+        $('#range-date').daterangepicker({
+            opens: 'left',
+            ranges: defaultRanges,
+            alwaysShowCalendars: true,
+            startDate: startDate, 
+            endDate: endDate,
+            locale: {
+                format: "DD/MM/YYYY"
+            }
+        }, function(start, end, label) {
+            $("input#start").val(start);
+            $("input#end").val(end);
+            $('form#frmDateRange').submit();
+        });        
+    });
+    </script>
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-    $.widget.bridge('uibutton', $.ui.button)
-    </script>
     <!-- ChartJS -->
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- jQuery Knob Chart -->
