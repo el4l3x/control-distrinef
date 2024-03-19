@@ -393,14 +393,14 @@ ORDER BY o.id_order desc;");
 @section('content')
     <div style="text-align:center;background-color:#F5F6E3;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
     <p>
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
 			@csrf
             <button type="submit" id="exportarMarcas" name="exportarMarcas">Exportar MARCAS ACTIVAS a Excel (CSV)</button>
         </form>
     </p>
     </div>
     <div style="text-align:center;background-color:#F5F6E3;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
 			@csrf
         	<p>RANGO DE FECHAS: DE <input type="text" id="fromDate" name="fromDate"> HASTA <input type="text" id="toDate" name="toDate"></p>
               <p>* NOTA: si se quieren extraer los pedidos del último dia hasta las 23:59:59h se debe poner siempre UN DIA MAS en el campo HASTA. Por ejemplo, para incluir todos los pedidos del mes de Junio, se debe poner DE 01/06/2020 HASTA 01/07/2020.
@@ -408,7 +408,7 @@ ORDER BY o.id_order desc;");
         </form>
      </div>
     <div style="text-align:center;background-color:#F5F6E3;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
             @csrf
         	<p>RANGO DE FECHAS: DE <input type="text" id="fromDate" name="fromDate"> HASTA <input type="text" id="toDate" name="toDate"></p>
               <p>* NOTA: Se exportaran todos los productos vendidos entre las 2 fechas.
@@ -416,7 +416,7 @@ ORDER BY o.id_order desc;");
         </form>
      </div>
     <div style="text-align:center;background-color:#F5F6E3;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
 			@csrf
         	<p>RANGO DE FECHAS: DE <input type="text" id="fromDate" name="fromDate"> HASTA <input type="text" id="toDate" name="toDate"></p>
               <p>* NOTA: Se exportaran todos los PEDIDOS EXCEPTO los que hayan entrado como ERROR EN PAGO entre las 2 fechas indicadas.
@@ -424,7 +424,7 @@ ORDER BY o.id_order desc;");
         </form>
      </div>
     <div style="text-align:center;background-color:#F5F6E3;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
 			@csrf
         	<select name="marca">
         	<option value="0">Seleccionar Marca:</option>
@@ -440,7 +440,7 @@ ORDER BY o.id_order desc;");
      </div>
     <div style="text-align:center;background-color:#F5F609;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
     <p>
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
 			@csrf
             <button type="submit" id="exportarTodosProductos" name="exportarTodosProductos">Exportar TODOS LOS PRODUCTOS ACTIVOS a Excel (CSV)</button>
         </form>
@@ -448,7 +448,7 @@ ORDER BY o.id_order desc;");
     </div>
     <div style="text-align:center;background-color:#F5F609;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
     <p>
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
 			@csrf
         	<p>RANGO DE FECHAS: DE <input type="text" id="fromDate" name="fromDate"> HASTA <input type="text" id="toDate" name="toDate"></p>
               <p>* NOTA: Se exportaran todos los PEDIDOS con INSTALACIÓN entre las 2 fechas indicadas.
@@ -457,7 +457,7 @@ ORDER BY o.id_order desc;");
     </p>
     </div>
     <div style="text-align:center;background-color:#F5F609;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
 			@csrf
         	<p>RANGO DE FECHAS: DE <input type="text" id="fromDate" name="fromDate"> HASTA <input type="text" id="toDate" name="toDate"></p>
               <p>* NOTA: Se exportaran todos los PEDIDOS ENTRADOS CON HISTORICO DE ESTADOS entre las 2 fechas indicadas.
@@ -465,7 +465,7 @@ ORDER BY o.id_order desc;");
         </form>
      </div>
      <div style="text-align:center;background-color:#F5F609;width:80%;margin:20px auto;padding:20px;border:2px dotted #DDBF16;">
-        <form action="{{ $_SERVER["PHP_SELF"] }}" method="post">
+        <form action="{{ route('gfc.privado.descargar-excels') }}" method="post">
 			@csrf
         	<p>RANGO DE FECHAS: DE <input type="text" id="fromDate" name="fromDate"> HASTA <input type="text" id="toDate" name="toDate"></p>
               <p>* NOTA: Se exportaran los PEDIDOS CON PRODUCTOS FLUORADOS RECIBIDO=NO entre las 2 fechas indicadas.
