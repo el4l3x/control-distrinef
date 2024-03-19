@@ -6,12 +6,12 @@ if (!function_exists('conectarBd')) {
 	function conectarBd(){
 		$x=new mysqli(
 			"localhost", // URL
-			"root", // Usuario
+			/* "root", // Usuario
 			"", // Clave
-			"presta17test" // Nombre 
-			/* "user_presta", // Usuario
+			"presta17test" // Nombre  */
+			"user_presta", // Usuario
 			"&a0aY3m0", // Clave
-			"presta17" // Nombre  */
+			"presta17" // Nombre 
 		);
 		if ($x->connect_errno){
 			die ("Error: ".$x->mysqli_connect_errno().$x->mysqli_connect_error());
