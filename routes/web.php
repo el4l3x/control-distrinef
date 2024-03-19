@@ -65,7 +65,10 @@ Route::middleware([
     /* Route::get('descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels'); */
     Route::any('descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels');
     Route::get('upload-dtocompra', [PrivadoController::class, 'uploadDtocompra'])->name('gfc.privado.upload_dtocompra');
-    Route::get('consulta-stock', [PrivadoController::class, 'consultaStockNetosEditor'])->name('gfc.privado.consulta_stock-netos_editor');
+    Route::any('consulta-stock', [PrivadoController::class, 'consultaStockNetosEditor'])->name('gfc.privado.consulta_stock-netos_editor');
+    Route::any('datatable/consulta-stock', function (Request $request) {
+       include(app_path() . '/privado/controlador.php'); 
+    });
 
     /* Route::any('test', function (Request $request) {
        return view('gfc.privado.cambio-precios', compact('request'));

@@ -24,7 +24,8 @@ class PrivadoController extends Controller
         include(app_path() . '/privado/upload_dtocompra.php.php');
     }
     
-    public function consultaStockNetosEditor() {
-        include(app_path() . '/privado/consulta_stock-netos_editor.php');
+    public function consultaStockNetosEditor(Request $request) {
+        return view('gfc.privado.stock-netos', compact('request'));
+        /* include(app_path() . '/privado/consulta_stock-netos_editor.php'); */
     }
 }

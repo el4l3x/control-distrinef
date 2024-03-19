@@ -351,7 +351,6 @@ return [
         [
             'text' => 'Consultar Stocks y/o Precios Netos',
             'route'  => 'gfc.privado.consulta_stock-netos_editor',
-            'target' => '_blank',
         ],
         [
             'text' => 'Modificar Precios en Masa',
