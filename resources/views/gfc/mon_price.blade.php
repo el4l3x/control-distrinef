@@ -38,6 +38,7 @@
                                 'order' => [[0, 'asc']],
                                 'ajax'  => route('gfc.datatable.monprice'),
                                 'columns'   => $arrayColumns,
+                                'aLengthMenu'   => [[25, 50, 100, -1], [25, 50, 100, "Todas"]],
                                 'language'  => [
                                     'url'   => '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
                                 ],
