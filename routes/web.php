@@ -7,6 +7,7 @@ use App\Http\Controllers\PrivadoController;
 use App\Http\Controllers\ProductController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -61,9 +62,16 @@ Route::middleware([
 
     Route::get('gasfriocalor/cambio-precios', [PrivadoController::class, 'cambioPrecios'])->name('gfc.privado.cambio-precios');
     Route::get('gasfriocalor/desbloquear-pedidos', [PrivadoController::class, 'desbloquearPedidos'])->name('gfc.privado.desbloquear-pedidos');
-    Route::get('gasfriocalor/descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels');
+    /* Route::get('gasfriocalor/descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels'); */
+    Route::any('gasfriocalor/descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels');
     Route::get('gasfriocalor/upload-dtocompra', [PrivadoController::class, 'uploadDtocompra'])->name('gfc.privado.upload_dtocompra');
     Route::get('gasfriocalor/consulta-stock', [PrivadoController::class, 'consultaStockNetosEditor'])->name('gfc.privado.consulta_stock-netos_editor');
+
+    /* Route::any('test', function (Request $request) {
+       return view('gfc.privado.cambio-precios', compact('request'));
+       include(app_path() . '/test.php');
+    })->name('gfc.test'); */
+
 });
 });
 
