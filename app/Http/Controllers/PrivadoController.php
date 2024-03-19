@@ -10,8 +10,9 @@ class PrivadoController extends Controller
         include(app_path() . '/privado/cambio-precios.php');
     }
     
-    public function desbloquearPedidos() {
-        include(app_path() . '/privado/desbloquear-pedidos.php');
+    public function desbloquearPedidos(Request $request) {
+        /* include(app_path() . '/privado/desbloquear-pedidos.php'); */
+        return view('gfc.privado.desbloquear-pedidos', compact('request'));
     }
     
     public function descargarExcels(Request $request) {

@@ -60,12 +60,12 @@ Route::middleware([
     Route::post('producto/nuevo', [ProductController::class, 'store'])->name('gfc.products.store');
     Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('gfc.products.delete');
 
-    Route::get('gasfriocalor/cambio-precios', [PrivadoController::class, 'cambioPrecios'])->name('gfc.privado.cambio-precios');
-    Route::get('gasfriocalor/desbloquear-pedidos', [PrivadoController::class, 'desbloquearPedidos'])->name('gfc.privado.desbloquear-pedidos');
-    /* Route::get('gasfriocalor/descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels'); */
-    Route::any('gasfriocalor/descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels');
-    Route::get('gasfriocalor/upload-dtocompra', [PrivadoController::class, 'uploadDtocompra'])->name('gfc.privado.upload_dtocompra');
-    Route::get('gasfriocalor/consulta-stock', [PrivadoController::class, 'consultaStockNetosEditor'])->name('gfc.privado.consulta_stock-netos_editor');
+    Route::get('cambio-precios', [PrivadoController::class, 'cambioPrecios'])->name('gfc.privado.cambio-precios');
+    Route::any('desbloquear-pedidos', [PrivadoController::class, 'desbloquearPedidos'])->name('gfc.privado.desbloquear-pedidos');
+    /* Route::get('descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels'); */
+    Route::any('descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels');
+    Route::get('upload-dtocompra', [PrivadoController::class, 'uploadDtocompra'])->name('gfc.privado.upload_dtocompra');
+    Route::get('consulta-stock', [PrivadoController::class, 'consultaStockNetosEditor'])->name('gfc.privado.consulta_stock-netos_editor');
 
     /* Route::any('test', function (Request $request) {
        return view('gfc.privado.cambio-precios', compact('request'));

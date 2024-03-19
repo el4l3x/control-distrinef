@@ -334,16 +334,10 @@ return [
             'text' => 'Monitor de Precios',
             'route'  => 'gfc.monprice',
             'active' => ['gasfriocalor/monitor-precios'],
-        ],
-        [
-            'text' => 'Modificar Precios en Masa',
-            'route'  => 'gfc.privado.cambio-precios',
-            'target' => '_blank',
-        ],
+        ],        
         [
             'text' => 'Desbloquear Pedidos',
             'route'  => 'gfc.privado.desbloquear-pedidos',
-            'target' => '_blank',
         ],
         [
             'text' => 'Descargar Informes en Excel',
@@ -357,6 +351,11 @@ return [
         [
             'text' => 'Consultar Stocks y/o Precios Netos',
             'route'  => 'gfc.privado.consulta_stock-netos_editor',
+            'target' => '_blank',
+        ],
+        [
+            'text' => 'Modificar Precios en Masa',
+            'route'  => 'gfc.privado.cambio-precios',
             'target' => '_blank',
         ],
 
