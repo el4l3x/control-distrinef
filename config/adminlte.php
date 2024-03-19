@@ -348,7 +348,6 @@ return [
         [
             'text' => 'Descargar Informes en Excel',
             'route'  => 'gfc.privado.descargar-excels',
-            'target' => '_blank',
         ],
         [
             'text' => "Subir Dto's de Compra con CSV",
