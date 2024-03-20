@@ -21,7 +21,7 @@ class PrivadoController extends Controller
     }
     
     public function uploadDtocompra() {
-        include(app_path() . '/privado/upload_dtocompra.php.php');
+        include(app_path() . '/privado/upload_dtocompra.php');
     }
     
     public function consultaStockNetosEditor(Request $request) {
