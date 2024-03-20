@@ -52,8 +52,8 @@
                                 'ajax'  => [
                                     'url'   => route('gfc.datatable.bestproducts'),
                                     'data'  =>   [
-                                        'start' => $startDateFormat->format("Y-m-d"),
-                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                        'start' => $startDateFormat,
+                                        'end'   => $endDateFormat,
                                     ]
                                 ],
                                 'order' => [[3, 'desc']],
@@ -108,8 +108,8 @@
                                 'ajax'  => [
                                     'url'   => route('gfc.datatable.bestaires'),
                                     'data'  =>   [
-                                        'start' => $startDateFormat->format("Y-m-d"),
-                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                        'start' => $startDateFormat,
+                                        'end'   => $endDateFormat,
                                     ]
                                 ],
                                 'order' => [[3, 'desc']],
@@ -163,8 +163,8 @@
                                 'ajax'  => [
                                     'url'   => route('gfc.datatable.bestcalderas'),
                                     'data'  =>   [
-                                        'start' => $startDateFormat->format("Y-m-d"),
-                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                        'start' => $startDateFormat,
+                                        'end'   => $endDateFormat,
                                     ]
                                 ],
                                 'order' => [[3, 'desc']],
@@ -221,8 +221,8 @@
                                 'ajax'  => [
                                     'url'   => route('gfc.datatable.bestaerotermia'),
                                     'data'  =>   [
-                                        'start' => $startDateFormat->format("Y-m-d"),
-                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                        'start' => $startDateFormat,
+                                        'end'   => $endDateFormat,
                                     ]
                                 ],
                                 'order' => [[3, 'desc']],
@@ -276,8 +276,8 @@
                                 'ajax'  => [
                                     'url'   => route('gfc.datatable.bestventilacion'),
                                     'data'  =>   [
-                                        'start' => $startDateFormat->format("Y-m-d"),
-                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                        'start' => $startDateFormat,
+                                        'end'   => $endDateFormat,
                                     ]
                                 ],
                                 'order' => [[3, 'desc']],
@@ -334,8 +334,8 @@
                                 'ajax'  => [
                                     'url'   => route('gfc.datatable.bestcaletadoresgas'),
                                     'data'  =>   [
-                                        'start' => $startDateFormat->format("Y-m-d"),
-                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                        'start' => $startDateFormat,
+                                        'end'   => $endDateFormat,
                                     ]
                                 ],
                                 'order' => [[3, 'desc']],
@@ -389,8 +389,8 @@
                                 'ajax'  => [
                                     'url'   => route('gfc.datatable.besttermoselectricos'),
                                     'data'  =>   [
-                                        'start' => $startDateFormat->format("Y-m-d"),
-                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                        'start' => $startDateFormat,
+                                        'end'   => $endDateFormat,
                                     ]
                                 ],
                                 'order' => [[3, 'desc']],
@@ -446,8 +446,8 @@
                                 'ajax'  => [
                                     'url'   => route('gfc.datatable.bestsuperventas'),
                                     'data'  =>   [
-                                        'start' => $startDateFormat->format("Y-m-d"),
-                                        'end'   => $endDateFormat->format("Y-m-d"),
+                                        'start' => $startDateFormat,
+                                        'end'   => $endDateFormat,
                                     ]
                                 ],
                                 'order' => [[3, 'desc']],
