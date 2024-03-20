@@ -97,8 +97,8 @@ class GfcController extends Controller
             $start = $request->session()->get('startBestsProducts', Carbon::yesterday());
             $end = $request->session()->get('endBestsProducts', Carbon::now());
         } else {
-            $start = $request->date('start')->subHours(4); 
-            $end = $request->date('end')->subHours(4);
+            $start = $request->date('start')->format('Y-m-d H:i:s'); 
+            $end = $request->date('end')->format('Y-m-d H:i:s');
 
             $request->session()->put('startBestsProducts', $start);
             $request->session()->put('endBestsProducts', $end);
@@ -421,8 +421,8 @@ class GfcController extends Controller
             "totalUnidadesTermosElectricos"    => $totalUnidadesTermosElectricos,
             "superventasMasVendidos"  =>  $superventas->count(),
             "totalUnidadesSuperventas"    => $totalUnidadesSuperventas,
-            "startDate" => $start->format('d/m/Y'),
-            "endDate" => $end->format('d/m/Y'),
+            "startDate" => Carbon::createFromDate($start)->format('d/m/Y'),
+            "endDate" => Carbon::createFromDate($end)->format('d/m/Y'),
             "startDateFormat" => $start,
             "endDateFormat" => $end,
         ]);
