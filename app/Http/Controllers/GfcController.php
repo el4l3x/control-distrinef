@@ -26,8 +26,8 @@ class GfcController extends Controller
 			
 			//return $start;
         } else {
-            $start = $request->date('start')->subHours(4); 
-            $end = $request->date('end')->subHours(4);
+            $start = $request->date('start')->format('Y-m-d H:i:s'); 
+            $end = $request->date('end')->format('Y-m-d H:i:s');
 
             $request->session()->put('startDashboard', $start);
             $request->session()->put('endDashboard', $end);
@@ -37,13 +37,13 @@ class GfcController extends Controller
 
         /* Pedidos Entrados */
         $pedidosEntrados = DB::connection('presta')->table('orders')
-            ->where('orders.valid', 1)
+            /* ->where('orders.valid', 1) */
             ->whereBetween('orders.date_add', [$start, $end])
             ->count();
             
         /* Importe Facturado */
         $importeFacturado = DB::connection('presta')->table('orders')
-            ->where('orders.valid', 1)
+            /* ->where('orders.valid', 1) */
             ->whereBetween('orders.date_add', [$start, $end])
             ->sum('orders.total_paid_tax_incl');
             
@@ -55,6 +55,7 @@ class GfcController extends Controller
         /* Carritos Clientes */
         $carritosClientes = DB::connection('presta')->table('cart')
             ->where('id_customer', '!=', 0)
+            ->where('id_customer', '!=', 66079)
             ->whereBetween('cart.date_add', [$start, $end])
             ->count();
 
@@ -79,8 +80,8 @@ class GfcController extends Controller
             "carritosTotales"   => $carritosTotales,
             "carritosClientes"   => $carritosClientes,
             "importeFacturado"   => number_format($importeFacturado, 2, ",", ".")." €",
-            "startDate" => $start->format('d/m/Y'),
-            "endDate" => $end->format('d/m/Y'),
+            "startDate" => Carbon::createFromDate($start)->format('d/m/Y'),
+            "endDate" => Carbon::createFromDate($end)->format('d/m/Y'),
             "startDateFormat" => $start,
             "endDateFormat" => $end,
         ]);
