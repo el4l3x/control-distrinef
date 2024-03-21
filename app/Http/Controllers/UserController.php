@@ -43,8 +43,6 @@ class UserController extends Controller
             ])->save();
 
             if (isset($request->image)) {
-                /* Storage::delete(asset('storage/img/users'.$user->profile_photo_path)); */
-                /* dd('storage/img/users/'.$user->profile_photo_path); */
                 Storage::disk('public')->delete('img/users/'.$user->profile_photo_path);
 
                 $name = $request->username.date('dmYGis').'.png';
