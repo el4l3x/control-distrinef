@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GfcController;
 use App\Http\Controllers\PrivadoController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
@@ -31,11 +32,12 @@ Route::middleware([
         return redirect('/dashboard');
     });
 
-    /* Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard'); */
     Route::get('/dashboard', function () {
         return redirect('gasfriocalor/dashboard');
     });
-    /* Route::post('/gasfriocalor', [DashboardController::class, 'dashboard'])->name('dashboard.dates'); */
+
+    Route::get('usuario/perfil', [UserController::class, 'perfil'])->name('perfil');
+    Route::post('usuario/perfil', [UserController::class, 'perfilUpdate'])->name('perfil.update');
 
 Route::prefix('gasfriocalor')->group(function () {
     Route::get('/dashboard', [GfcController::class, 'dashboard'])->name('gfc.dashboard');
@@ -65,18 +67,12 @@ Route::prefix('gasfriocalor')->group(function () {
 
     Route::get('cambio-precios', [PrivadoController::class, 'cambioPrecios'])->name('gfc.privado.cambio-precios');
     Route::any('desbloquear-pedidos', [PrivadoController::class, 'desbloquearPedidos'])->name('gfc.privado.desbloquear-pedidos');
-    /* Route::get('descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels'); */
     Route::any('descargar-excels', [PrivadoController::class, 'descargarExcels'])->name('gfc.privado.descargar-excels');
     Route::get('upload-dtocompra', [PrivadoController::class, 'uploadDtocompra'])->name('gfc.privado.upload_dtocompra');
     Route::any('consulta-stock', [PrivadoController::class, 'consultaStockNetosEditor'])->name('gfc.privado.consulta_stock-netos_editor');
     Route::any('datatable/consulta-stock', function (Request $request) {
        include(app_path() . '/privado/controlador.php'); 
     });
-
-    /* Route::any('test', function (Request $request) {
-       return view('gfc.privado.cambio-precios', compact('request'));
-       include(app_path() . '/test.php');
-    })->name('gfc.test'); */
 
 });
 });
@@ -109,5 +105,3 @@ Route::get('/monitor/scrap', function () {
 
 Auth::routes();
 Auth::routes(['register' => false]);
-
-/* Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); */
